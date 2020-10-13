@@ -1,0 +1,7 @@
+<div class="jumbotron">
+  <h1 class="display-4">Clean Request</h1>
+    <div> Date Requested:<%= @clean_request.date%> </div>
+    <div> Plot Numbers:<%= @clean_request.plot_numbers%> </div>
+    <div> Notes:<%= @clean_request.notes%> </div>
+    <div> Requested by: <%= User.find(@clean_request.user_id).email %>
+</div>

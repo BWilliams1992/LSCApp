@@ -1,0 +1,2 @@
+module CleanRequestsHelper
+end
