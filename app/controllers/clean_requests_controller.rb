@@ -1,5 +1,6 @@
 class CleanRequestsController < ApplicationController
 before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
+
     def new 
         @clean_request = CleanRequest.new
     end
@@ -19,7 +20,17 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
     def show
     end
 
+    def index
+        @clean_requests = CleanRequest.all 
+    end
+
     def update
+        if @clean_request.update(clean_request_params)
+            flash[:notice] = "Clean Requestsuccessfully updated!"
+            redirect_to @clean_request
+          else
+            render 'edit'
+          end
     end
 
     def edit
