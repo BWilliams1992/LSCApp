@@ -11,6 +11,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
         if @clean_request.save
             flash[:notice] = "Clean request was succesfully created!"
             redirect_to @clean_request
+            UserMailer.with(user: current_user, clean_request: @clean_request).new_clean_request_email.deliver_now
         else
             render 'new'
         end
@@ -49,7 +50,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
         end
 
         def clean_request_params 
-            params.require(:clean_request).permit(:plot_numbers, :clean, :location, :notes, :approved, :date)
+            params.require(:clean_request).permit(:plot_numbers, :clean, :location_id, :notes, :approved, :date)
         end
 
 
