@@ -1,0 +1,12 @@
+<h3><%= @location.site_name %></h3>
+<div><%= @location.address1 %></div>
+<%= @location.address2 %>
+<div><%= @location.city %></div>
+<div><%= @location.postcode %></div>
+
+<div>
+    <%= link_to 'Edit', edit_location_path(@location) %>
+</div>
+
+<div> 
+    <%= link_to 'Delete', location_path, method: :delete, data:{ confirm: "Are you sure? "} %>

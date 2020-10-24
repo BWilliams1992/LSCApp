@@ -6,11 +6,17 @@
     <th scope="col">Approved </th>
   </thead>
   <% @clean_requests.each do |clean_request| %>
-    <tr scope="row">
-      <td><%= link_to clean_request.id, clean_request %></td>
-      <td><%= clean_request.date %></td>
-      <td><%= clean_request.created_at.strftime('%d/%m/%Y') %></td>
-      <td><%= clean_request.approved? ? 'Y' : 'N' %></td>
-    </tr>
+    <% if can? :read, clean_request%>
+      <tr scope="row">
+        <td><%= link_to clean_request.id, clean_request %></td>
+        <td><%= clean_request.date.strftime('%d/%m/%Y') %></td>
+        <td><%= clean_request.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= clean_request.approved? ? 'Y' : 'N' %></td>
+      </tr>
+    <% end %>
   <% end %> 
 </table>
+
+<div>
+  <%= link_to 'New Request', new_clean_request_path %>
+</div>

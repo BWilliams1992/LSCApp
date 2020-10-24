@@ -1,0 +1,7 @@
+<% @locations.each do |location| %>
+    <div><%= link_to location.site_name, location_path(location.id) %></div>
+<% end %>
+
+<div>
+    <%= link_to 'New Location', new_location_path %>
+</div>

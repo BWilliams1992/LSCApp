@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_12_175216) do
+ActiveRecord::Schema.define(version: 2020_10_24_141851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,22 @@ ActiveRecord::Schema.define(version: 2020_10_12_175216) do
     t.text "notes"
     t.boolean "approved"
     t.date "date"
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_clean_requests_on_location_id"
     t.index ["user_id"], name: "index_clean_requests_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "county"
+    t.string "postcode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.string "site_name"
+    t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,5 +55,7 @@ ActiveRecord::Schema.define(version: 2020_10_12_175216) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "clean_requests", "locations"
   add_foreign_key "clean_requests", "users"
+  add_foreign_key "locations", "users"
 end

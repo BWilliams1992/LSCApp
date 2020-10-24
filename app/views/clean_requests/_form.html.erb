@@ -1,5 +1,11 @@
 <div class="container">
   <%= form_with(model: @clean_request, local: true) do |f| %>
+
+    <div class="form-group row">
+      <%= f.label "Location: ", class:"col-form-label col-2"%>
+      <%= f.collection_select :location, Location.all, :id, :site_name %>
+    </div>
+
     <div class="form-group row">
       <%= f.label :plot_numbers, class:"col-form-label col-2" %>
       <%= f.text_field :plot_numbers, class:"form-control col-10"  %>
@@ -9,16 +15,20 @@
       <%= f.label :date, class:"col-form-label col-2"  %>
       <%= f.date_field :date, class:"form-control col-10"%>
     </div>
+
     <div class="form-group row">
       <%= f.label :clean, 'Type of Clean', class:"col-form-label col-2"  %>
       <%= f.text_field :clean, class:"form-control col-10" %>
     </div>
+
     <div class="form-group row">
       <%= f.label :notes, class:"col-form-label col-2"  %>
       <%= f.text_area :notes, class:"form-control col-10" %>
     </div>
+
     <div class="form-group row justify-content-center">
       <%= f.submit class:"btn btn-lg btn-primary" %>
     </div>
+
   <% end %>
 </div>

@@ -36,6 +36,12 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
     def edit
     end
 
+    def destroy
+        @clean_request.destroy
+        flash[:notice] = "Clean request removed"
+        redirect_to clean_requests_path
+      end
+
     private
 
         def set_clean_request
@@ -43,7 +49,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
         end
 
         def clean_request_params 
-            params.require(:clean_request).permit(:plot_numbers, :clean, :notes, :approved, :date)
+            params.require(:clean_request).permit(:plot_numbers, :clean, :location, :notes, :approved, :date)
         end
 
 
