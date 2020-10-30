@@ -10,3 +10,11 @@
 
 <div> 
     <%= link_to 'Delete', location_path, method: :delete, data:{ confirm: "Are you sure? "} %>
+</div>
+<br />
+<div>
+    <%= link_to 'Houses', location_houses_path(params[:id]) %>
+</div>
+<div>
+    <%= link_to 'New House', new_location_house_path(params[:id]) %>
+</div>

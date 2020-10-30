@@ -28,6 +28,9 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
     def update
         if @clean_request.update(clean_request_params)
             flash[:notice] = "Clean Requestsuccessfully updated!"
+            if @clean_request.approved?
+                UserMailer.with(user: @clean_request.user, clean_request: @clean_request, admin: current_user).clean_request_approval_change_email.deliver_now
+            end
             redirect_to @clean_request
           else
             render 'edit'

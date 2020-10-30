@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'clean_requests#index'
   resources :clean_requests
-  resources :locations
+  resources :cleans
+  resources :locations do
+    resources :houses
+  end
 end

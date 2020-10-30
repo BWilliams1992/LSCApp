@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_24_141851) do
+ActiveRecord::Schema.define(version: 2020_10_30_170334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,29 @@ ActiveRecord::Schema.define(version: 2020_10_24_141851) do
     t.bigint "location_id"
     t.index ["location_id"], name: "index_clean_requests_on_location_id"
     t.index ["user_id"], name: "index_clean_requests_on_user_id"
+  end
+
+  create_table "cleans", force: :cascade do |t|
+    t.date "date"
+    t.bigint "location_id"
+    t.integer "plot"
+    t.bigint "house_id"
+    t.boolean "completed"
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["house_id"], name: "index_cleans_on_house_id"
+    t.index ["location_id"], name: "index_cleans_on_location_id"
+  end
+
+  create_table "houses", force: :cascade do |t|
+    t.string "sales_name"
+    t.float "cost"
+    t.string "build_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "location_id", null: false
+    t.index ["location_id"], name: "index_houses_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -57,5 +80,8 @@ ActiveRecord::Schema.define(version: 2020_10_24_141851) do
 
   add_foreign_key "clean_requests", "locations"
   add_foreign_key "clean_requests", "users"
+  add_foreign_key "cleans", "houses"
+  add_foreign_key "cleans", "locations"
+  add_foreign_key "houses", "locations"
   add_foreign_key "locations", "users"
 end

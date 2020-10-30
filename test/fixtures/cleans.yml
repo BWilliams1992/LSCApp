@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-10-30
+  location: one
+  plot: 
+  house: one
+  completed: false
+  type: 
+
+two:
+  date: 2020-10-30
+  location: two
+  plot: 
+  house: two
+  completed: false
+  type: 
