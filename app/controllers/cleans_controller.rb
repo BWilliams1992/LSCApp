@@ -48,7 +48,7 @@ class CleansController < ApplicationController
         end
 
         def clean_params 
-            params.require(:clean).permit(:date, :site_id, :plot, :house_id, :completed, :type) 
+            params.require(:clean).permit(:date, :location_id, :plot, :house_id, :completed, :clean_type) 
         end
 
 end
