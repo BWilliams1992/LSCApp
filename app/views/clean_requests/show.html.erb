@@ -2,7 +2,12 @@
   <h1 class="display-4">Clean Request</h1>
     <div> Date Requested:<%= @clean_request.date%> </div>
     <div> Location: <%= @clean_request.location.site_name  if @clean_request.location %> </div>
-    <div> Plot Numbers:<%= @clean_request.plot_numbers%> </div>
+    <div> Plot Numbers:
+      <% @clean_request.plot_numbers.each do |plot_number| %> 
+        Plot: <%= plot_number %>
+      <% end %>
+    </div>
+    <div> Clean requested: <%= @clean_request.clean_type %> </div>
     <div> Notes:<%= @clean_request.notes%> </div>
     <div> Requested by: <%= User.find(@clean_request.user_id).email %></div>
     <div><%= link_to 'Edit', edit_clean_request_path(@clean_request) %></div>
@@ -12,12 +17,9 @@
 <% if current_user.admin? %>
   <div>
     <h3>Admin</h3>
-    <%= form_with(model: @clean_request, local: true) do |f| %>
-      <%= f.label :approved %>
-      <%= f.radio_button(:approved, true) %>
-      <%= f.label :approved, "Denied" %>
-      <%= f.radio_button(:approved, false) %>
-      <%= f.submit %>
+    <% if !@clean_request.clean %>
+      <h4>Convert to clean job </h4>
+       <%= link_to clean_request_convert_path(@clean_request), method: "get" %> 
     <% end %>
   </div>
 <% end %>

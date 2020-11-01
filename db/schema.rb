@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_192944) do
+ActiveRecord::Schema.define(version: 2020_11_01_210528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 2020_10_30_192944) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.integer "plot_numbers"
-    t.string "clean"
+    t.string "clean_type"
     t.text "notes"
     t.boolean "approved"
     t.date "date"
     t.bigint "location_id"
+    t.integer "plot_numbers", default: [], array: true
     t.index ["location_id"], name: "index_clean_requests_on_location_id"
     t.index ["user_id"], name: "index_clean_requests_on_user_id"
   end
@@ -32,12 +32,14 @@ ActiveRecord::Schema.define(version: 2020_10_30_192944) do
   create_table "cleans", force: :cascade do |t|
     t.date "date"
     t.bigint "location_id"
-    t.integer "plot"
+    t.string "plot"
     t.bigint "house_id"
     t.boolean "completed"
     t.string "clean_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "clean_request_id"
+    t.index ["clean_request_id"], name: "index_cleans_on_clean_request_id"
     t.index ["house_id"], name: "index_cleans_on_house_id"
     t.index ["location_id"], name: "index_cleans_on_location_id"
   end
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_10_30_192944) do
 
   add_foreign_key "clean_requests", "locations"
   add_foreign_key "clean_requests", "users"
+  add_foreign_key "cleans", "clean_requests"
   add_foreign_key "cleans", "houses"
   add_foreign_key "cleans", "locations"
   add_foreign_key "houses", "locations"

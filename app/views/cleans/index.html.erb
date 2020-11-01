@@ -1,19 +1,17 @@
 <table class='table table-striped table-hover'>
   <thead>
-    <th scope="col">Request No*</th>
-    <th scope="col">Date(s) Requested</th>
+    <th scope="col">Clean No*</th>
+    <th scope="col">Date(s)</th>
     <th scope="col">Request sent on </th>
-    <th scope="col">Approved </th>
+    <th scope="col">Completed </th>
   </thead>
   <% @cleans.each do |clean| %>
-    <% if can? :read, clean%>
       <tr scope="row">
         <td><%= link_to clean.id, clean %></td>
         <td><%= clean.date.strftime('%d/%m/%Y') %></td>
         <td><%= clean.created_at.strftime('%d/%m/%Y') %></td>
-        <td><%= clean.approved? ? 'Y' : 'N' %></td>
+        <td><%= clean.completed? ? 'Y' : 'N' %></td>
       </tr>
-    <% end %>
   <% end %> 
 </table>
 

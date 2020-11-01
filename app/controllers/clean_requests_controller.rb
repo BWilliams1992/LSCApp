@@ -1,5 +1,5 @@
 class CleanRequestsController < ApplicationController
-before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
+before_action :set_clean_request, except: [:index,:new,:create,:convert]
 
     def new 
         @clean_request = CleanRequest.new
@@ -8,6 +8,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
     def create
         @clean_request = CleanRequest.new(clean_request_params)
         @clean_request.user_id = current_user.id
+
         if @clean_request.save
             flash[:notice] = "Clean request was succesfully created!"
             redirect_to @clean_request
@@ -27,10 +28,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
 
     def update
         if @clean_request.update(clean_request_params)
-            flash[:notice] = "Clean Requestsuccessfully updated!"
-            if @clean_request.approved?
-                UserMailer.with(user: @clean_request.user, clean_request: @clean_request, admin: current_user).clean_request_approval_change_email.deliver_now
-            end
+            flash[:notice] = "Clean Request successfully updated!"
             redirect_to @clean_request
           else
             render 'edit'
@@ -44,7 +42,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
         @clean_request.destroy
         flash[:notice] = "Clean request removed"
         redirect_to clean_requests_path
-      end
+    end
 
     private
 
@@ -53,8 +51,7 @@ before_action :set_clean_request, only: [:show,:edit,:update,:destroy]
         end
 
         def clean_request_params 
-            params.require(:clean_request).permit(:plot_numbers, :clean, :location_id, :notes, :approved, :date)
+            params.require(:clean_request).permit(:clean_type, :location_id, :notes, :approved, :date, :plot_numbers => [])
         end
-
 
 end

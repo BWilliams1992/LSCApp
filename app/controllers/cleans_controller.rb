@@ -39,7 +39,31 @@ class CleansController < ApplicationController
         @clean.destroy
         flash[:notice] = "Clean removed"
         redirect_to cleans_path
-      end
+    end
+
+    def convert
+        @clean_request = CleanRequest.find(params[:clean_request_id])
+        if !@clean_request.cleans[0]
+                @clean = Clean.new(
+                    date: @clean_request.date, 
+                    location_id: @clean_request.location_id,
+                    plot: @clean_request.plot_numbers,
+                    house_id: '1',
+                    clean_type: @clean_request.clean_type,
+                    clean_request_id: @clean_request.id,
+                    completed: false
+                )
+                if @clean.save
+                    flash[:notice] = "Clean successfully generated from clean request"
+                else
+                    render 'show'
+                    flash[:error] = 'Error in conversion'
+                end
+            redirect_to cleans_path
+        else
+            raise  Exception.new("Cleans already exists for this clean request")
+        end
+    end
 
     private
 

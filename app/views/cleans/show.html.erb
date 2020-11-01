@@ -1,9 +1,13 @@
 <div class="jumbotron">
   <h1 class="display-4">Clean</h1>
-    <div> Date:<%= @clean.date%> </div>
-    <div> Location: <%= @clean.location.site_name  if @clean.location %> </div>
-    <div> Plot Numbers:<%= @clean.plot%> </div>
+    <div>Date:<%= @clean.date %> </div>
+    <div>Location: <%= @clean.location.site_name  if @clean.location %> </div>
+    <div>Plot:<%= @clean.plot %> </div>
+    <div>House:<%= @clean.house.sales_name %> </div>
     <div>Type of Clean: <%= @clean.clean_type %> </div>
     <div><%= link_to 'Edit', edit_clean_path(@clean) %></div>
     <div><%= link_to 'Delete request', @clean, method:(:delete), data: { confirm: "Are you sure?"} %></div>
+    <% if @clean.clean_request %>
+      <div><%= link_to 'Parent Clean Request', clean_request_path(@clean.clean_request) %> </div>
+    <% end %>
 </div>
