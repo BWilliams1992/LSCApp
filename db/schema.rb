@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_08_141907) do
+ActiveRecord::Schema.define(version: 2020_11_08_155236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 2020_11_08_141907) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "number"
+    t.bigint "house_id"
+    t.index ["house_id"], name: "index_plots_on_house_id"
     t.index ["location_id"], name: "index_plots_on_location_id"
   end
 
@@ -93,5 +95,6 @@ ActiveRecord::Schema.define(version: 2020_11_08_141907) do
   add_foreign_key "cleans", "houses"
   add_foreign_key "cleans", "locations"
   add_foreign_key "locations", "users"
+  add_foreign_key "plots", "houses"
   add_foreign_key "plots", "locations"
 end
