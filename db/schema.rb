@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_01_210528) do
+ActiveRecord::Schema.define(version: 2020_11_08_141907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_11_01_210528) do
     t.boolean "approved"
     t.date "date"
     t.bigint "location_id"
-    t.integer "plot_numbers", default: [], array: true
+    t.string "plot_number"
     t.index ["location_id"], name: "index_clean_requests_on_location_id"
     t.index ["user_id"], name: "index_clean_requests_on_user_id"
   end
@@ -50,8 +50,6 @@ ActiveRecord::Schema.define(version: 2020_11_01_210528) do
     t.string "build_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "location_id", null: false
-    t.index ["location_id"], name: "index_houses_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -64,7 +62,16 @@ ActiveRecord::Schema.define(version: 2020_11_01_210528) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.string "site_name"
+    t.integer "number_of_plots"
     t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "plots", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "number"
+    t.index ["location_id"], name: "index_plots_on_location_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -85,6 +92,6 @@ ActiveRecord::Schema.define(version: 2020_11_01_210528) do
   add_foreign_key "cleans", "clean_requests"
   add_foreign_key "cleans", "houses"
   add_foreign_key "cleans", "locations"
-  add_foreign_key "houses", "locations"
   add_foreign_key "locations", "users"
+  add_foreign_key "plots", "locations"
 end

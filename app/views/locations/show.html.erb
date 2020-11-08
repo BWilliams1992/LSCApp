@@ -10,7 +10,7 @@
     <div>
          <%= @location.address2 %>
     </div>
-    <div   >
+    <div>
         City:<%= @location.city %>  
     </div>
     <div>
@@ -23,16 +23,17 @@
   </div>
 
 </div>
+
 <div class="card">
     <div class="card-header">
-        <%= link_to 'Houses', location_houses_path(params[:id]), class:"h3" %>
+        <h3>Plots </h3>
     </div>
     <div class="card-body">
-        <% @location.houses.each do |house| %>
-            <p><%= house.sales_name %></p>
+        <% @location.plots.each do |plot| %>
+            <%= link_to plot.number, location_plot_path(@location, plot) %>
         <% end %>
     </div>
     <div class="card-footer">
-        <%= link_to 'New House', new_location_house_path(params[:id]), class:"d-flex justify-content-center" %>
+        
     </div>
 </div>

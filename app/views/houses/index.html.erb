@@ -1,3 +1,3 @@
-<% @location.houses.each do |house| %>
-    <%= link_to house.sales_name, location_house_path(@location, house) %>
+<% @houses.each do |house| %>
+    <%= link_to house.sales_name, house_path(house) %> <br />
 <% end %>
