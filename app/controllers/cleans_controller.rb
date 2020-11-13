@@ -47,8 +47,7 @@ class CleansController < ApplicationController
                 @clean = Clean.new(
                     date: @clean_request.date, 
                     location_id: @clean_request.location_id,
-                    plot: @clean_request.plot_numbers,
-                    house_id: '1',
+                    plot: @clean_request.plot_number,
                     clean_type: @clean_request.clean_type,
                     clean_request_id: @clean_request.id,
                     completed: false

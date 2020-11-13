@@ -51,7 +51,7 @@ before_action :set_clean_request, except: [:index,:new,:create,:convert]
         end
 
         def clean_request_params 
-            params.require(:clean_request).permit(:clean_type, :location_id, :notes, :approved, :date, :plot_numbers => [])
+            params.require(:clean_request).permit(:clean_type, :location_id, :notes, :approved, :date, :plot_number)
         end
 
 end
