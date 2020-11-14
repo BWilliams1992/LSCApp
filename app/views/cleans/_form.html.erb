@@ -1,19 +1,14 @@
-<div class="container">
+<div class="container" data-controller="cleansForm">
   <%= form_with(model: @clean, local: true) do |f| %>
 
     <div class="form-group row">
       <%= f.label "Location: ", class:"col-form-label col-2"%>
-      <%= f.collection_select :location_id, Location.all, :id, :site_name %>
+      <%= f.collection_select :location_id, Location.all, :id, :site_name, {prompt: true}, {class: "form-control col-10", data: { action: "change->cleansForm#changeOnLocation", target:"cleansForm.locationSelector"}} %>
     </div>
 
     <div class="form-group row">
-      <%= f.label "House: ", class:"col-form-label col-2"%>
-      <%= f.collection_select :house_id, House.all, :id, :sales_name %>
-    </div>
-
-    <div class="form-group row">
-      <%= f.label :plot, class:"col-form-label col-2" %>
-      <%= f.text_field :plot, class:"form-control col-10"  %>
+      <%= f.label "Plot: ", class:"col-form-label col-2"%>
+      <%= f.grouped_collection_select :plot_id, Location.all, :plots, :site_name, :id, :number, {}, {data: {target: "cleansForm.plotSelector"}} %>
     </div>
 
     <div class="form-group row">
