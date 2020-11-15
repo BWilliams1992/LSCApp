@@ -7,7 +7,7 @@ class CleansController < ApplicationController
 
     def create
         @clean = Clean.new(clean_params)
-        if @clean.save
+        if @clean.save!
             flash[:notice] = "Clean was succesfully created!"
             redirect_to @clean
         else
@@ -71,7 +71,7 @@ class CleansController < ApplicationController
         end
 
         def clean_params 
-            params.require(:clean).permit(:date, :location_id, :plot, :house_id, :completed, :clean_type) 
+            params.require(:clean).permit(:date, :location_id, :plot_id, :completed, :clean_type) 
         end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_153937) do
+ActiveRecord::Schema.define(version: 2020_11_15_170411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,13 @@ ActiveRecord::Schema.define(version: 2020_11_12_153937) do
   create_table "cleans", force: :cascade do |t|
     t.date "date"
     t.bigint "location_id"
-    t.string "plot"
     t.boolean "completed"
     t.string "clean_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "clean_request_id"
-    t.index ["clean_request_id"], name: "index_cleans_on_clean_request_id"
+    t.bigint "plot_id"
     t.index ["location_id"], name: "index_cleans_on_location_id"
+    t.index ["plot_id"], name: "index_cleans_on_plot_id"
   end
 
   create_table "houses", force: :cascade do |t|
@@ -89,8 +88,8 @@ ActiveRecord::Schema.define(version: 2020_11_12_153937) do
 
   add_foreign_key "clean_requests", "locations"
   add_foreign_key "clean_requests", "users"
-  add_foreign_key "cleans", "clean_requests"
   add_foreign_key "cleans", "locations"
+  add_foreign_key "cleans", "plots"
   add_foreign_key "locations", "users"
   add_foreign_key "plots", "houses"
   add_foreign_key "plots", "locations"

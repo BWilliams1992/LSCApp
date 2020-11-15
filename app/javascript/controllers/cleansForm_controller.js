@@ -4,16 +4,15 @@ import { Controller } from 'stimulus'
     changeOnLocation(e) {
       const locationSelectElement = document.getElementById('clean_location_id')
       let indexOnSelectElement = parseInt(locationSelectElement.options.selectedIndex)
-      
-      let selectedLocation = locationSelectElement.options[indexOnSelectElement].text
-
-      let selectedLocationOptionGroup = this.plotSelectorTarget.children[indexOnSelectElement-1].innerHTML
-      this.plotSelectorTarget.childNodes.forEach(function(optGroup, x) {
+      let plotSelectorListTop
+      this.plotSelectorTarget.childNodes.forEach(function(optGroup, x, plotSelectorTarget) {
         if (x == indexOnSelectElement-1) {
           optGroup.hidden = false
+          plotSelectorListTop = optGroup.children[0].value
         }else{
           optGroup.hidden = true
         }
       });
+      this.plotSelectorTarget.value = plotSelectorListTop
     }
   }
