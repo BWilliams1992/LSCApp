@@ -21,6 +21,9 @@ class LocationsController < ApplicationController
     end
 
     def show
+        @plots = @location.plots.sort_by {
+            |plot| plot.number
+        }
     end
 
     def update
