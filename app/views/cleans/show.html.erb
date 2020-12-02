@@ -2,7 +2,7 @@
   <h1 class="display-4">Clean</h1>
     <div>Date:<%= @clean.date %> </div>
     <div>Location: <%= Location.find(@clean.location_id).site_name  if @clean.location_id %> </div>
-    <div>Plot:<%= @clean.plot_id %> </div>
+    <div>Plot:<%= Plot.find(@clean.plot_id).number %> </div>
     <div>House: </div>
     <div>Type of Clean: <%= @clean.clean_type %> </div>
     <div><%= link_to 'Edit', edit_clean_path(@clean) %></div>

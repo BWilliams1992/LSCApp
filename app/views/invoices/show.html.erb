@@ -1,0 +1,7 @@
+Start Date: <%= @invoice.start_date %> <br />
+End Date: <%= @invoice.end_date %> <br />
+Cleans: 
+<% @cleans.each do |clean| %>
+  <%= link_to clean.date, clean_path(clean) %>
+<% end %>
+

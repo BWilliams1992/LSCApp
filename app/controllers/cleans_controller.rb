@@ -24,7 +24,7 @@ class CleansController < ApplicationController
     end
 
     def update
-        if @clean.update(clean_params)
+        if @clean.update!(clean_params)
             flash[:notice] = "Clean successfully updated!"
             redirect_to @clean
           else

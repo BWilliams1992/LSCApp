@@ -1,20 +1,16 @@
 <h1>Outstanding</h1>
-<table class='table table-striped table-hover'>
-  <thead>
-    <th scope="col">Clean No*</th>
-    <th scope="col">Date</th>
-    <th scope="col">Clean Type </th>
-    <th scope="col">Job created on </th>
-  </thead>
+<%= render 'table-header'%>
   <% @cleans.each do |clean| %>
     <% if clean.completed == false || !clean.completed %>
       <tr scope="row">
         <td><%= link_to clean.id, clean %></td>
         <td><%= clean.date.strftime('%d/%m/%Y') %></td>
+        <td><%= Location.find(clean.location_id).site_name %> </td>
+        <td> <%= Plot.find(clean.plot_id).number %> </td>
         <td><%= clean.clean_type %></td>
         <td><%= clean.created_at.strftime('%d/%m/%Y') %></td>
       </tr>
-      <% end %>
+    <% end %>
   <% end %> 
 </table>
 
@@ -23,18 +19,14 @@
 </div>
 
 <h1>Completed</h1>
-<table class='table table-striped table-hover'>
-  <thead>
-    <th scope="col">Clean No*</th>
-    <th scope="col">Date</th>
-    <th scope="col">Clean Type </th>
-    <th scope="col">Job created on </th>
-  </thead>
+<%= render 'table-header'%>
   <% @cleans.each do |clean| %>
     <% if clean.completed == true %>
       <tr scope="row">
         <td><%= link_to clean.id, clean %></td>
         <td><%= clean.date.strftime('%d/%m/%Y') %></td>
+        <td><%= Location.find(clean.location_id).site_name %> </td>
+        <td> <%= Plot.find(clean.plot_id).number %> </td>
         <td><%= clean.clean_type %></td>
         <td><%= clean.created_at.strftime('%d/%m/%Y') %></td>
       </tr>

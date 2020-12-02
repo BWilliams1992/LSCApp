@@ -1,0 +1,21 @@
+<%= form_with(model: @invoice, local: true) do |f| %>
+
+  <div class="form-group row">
+    <%= f.label :location, class:"col-form-label col-2" %>
+    <%= f.collection_select :location_id, Location.all, :id, :site_name %>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :start_date, class:"col-form-label col-2" %>
+    <%= f.date_field :start_date, class:"form-control col-10"  %>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :end_date, class:"col-form-label col-2" %>
+    <%= f.date_field :end_date, class:"form-control col-10"  %>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <%= f.submit class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

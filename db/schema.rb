@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_170411) do
+ActiveRecord::Schema.define(version: 2020_12_02_171113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 2020_11_15_170411) do
     t.string "build_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "location_id", null: false
+    t.index ["location_id"], name: "index_invoices_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -90,6 +99,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_170411) do
   add_foreign_key "clean_requests", "users"
   add_foreign_key "cleans", "locations"
   add_foreign_key "cleans", "plots"
+  add_foreign_key "invoices", "locations"
   add_foreign_key "locations", "users"
   add_foreign_key "plots", "houses"
   add_foreign_key "plots", "locations"
