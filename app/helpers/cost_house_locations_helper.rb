@@ -1,0 +1,2 @@
+module CostHouseLocationsHelper
+end

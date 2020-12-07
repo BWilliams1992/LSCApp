@@ -26,6 +26,20 @@
 
 <div class="card">
     <div class="card-header">
+        <h3>Houses </h3>
+    </div>
+    <div class="card-body">
+        <% @location.cost_house_locations.each do |cost| %>
+            <%= link_to cost.house.sales_name, location_cost_house_location_path(@location,cost)  %>
+        <% end %>
+    </div>
+    <div class="card-footer">
+        <%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
         <h3>Plots </h3>
     </div>
     <div class="card-body">

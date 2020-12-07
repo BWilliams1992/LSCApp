@@ -12,7 +12,7 @@ class LocationsController < ApplicationController
         for i in 1..@plots do
             @location.plots.build(number: i)
         end
-        if @location.save 
+        if @location.save! 
             flash[:notice] = "Location successfully created"
             redirect_to @location
         else
@@ -55,6 +55,6 @@ class LocationsController < ApplicationController
         end
 
         def location_params
-            params.require(:location).permit(:site_name, :address1, :address2, :city, :county, :postcode, :user_id, :number_of_plots)
+            params.require(:location).permit(:site_name, :address1, :address2, :city, :county, :postcode, :user_id, :number_of_plots, :start_date)
         end
 end

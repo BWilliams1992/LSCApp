@@ -1,7 +1,19 @@
 Start Date: <%= @invoice.start_date %> <br />
 End Date: <%= @invoice.end_date %> <br />
-Cleans: 
-<% @cleans.each do |clean| %>
-  <%= link_to clean.date, clean_path(clean) %>
-<% end %>
-
+Location: <%= @invoice.location.site_name %>
+<table class='table table-striped table-hover'>
+  <thead>
+    <th scope="col">Clean No*</th>
+    <th scope="col">Date</th>
+    <th scope="col">Plot No*</th>
+    <th scope="col">Cost </th>
+  </thead>
+  <% @cleans.each do |clean| %>
+    <tr>
+      <td><%= clean.id %> </td>
+      <td><%= clean.date%> </td>
+      <td><%= Plot.find(clean.plot_id).number %> </td>
+      <td><%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).cost %> </td>
+    </tr>
+  <% end %>
+</table>

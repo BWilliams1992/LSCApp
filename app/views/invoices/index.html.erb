@@ -3,8 +3,9 @@
   <h3><%=location.site_name%></h3>
   <hr />
   <% location.invoices.each do |invoice| %>
-    <%= link_to invoice.start_date.strftime('%d %b %Y') + ' - ' + invoice.end_date.strftime('%d %b %Y'), invoice_path(invoice)%>
+    <%= link_to invoice.start_date.strftime('%d %b %Y') + ' - ' + invoice.end_date.strftime('%d %b %Y'), invoice_path(invoice)%> <br />
   <% end %>
+  <hr />
 <% end %>
 
 <%= link_to 'New Invoice', new_invoice_path %>

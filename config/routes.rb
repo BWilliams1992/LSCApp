@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   resources :cleans
   resources :locations do
+    resources :cost_house_locations
     resources :plots
   end
   resources :houses

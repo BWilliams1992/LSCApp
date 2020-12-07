@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_153733) do
+ActiveRecord::Schema.define(version: 2020_12_07_185852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,12 +43,24 @@ ActiveRecord::Schema.define(version: 2020_12_05_153733) do
     t.index ["plot_id"], name: "index_cleans_on_plot_id"
   end
 
+  create_table "cost_house_locations", force: :cascade do |t|
+    t.integer "cost"
+    t.bigint "house_id"
+    t.bigint "location_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["house_id"], name: "index_cost_house_locations_on_house_id"
+    t.index ["location_id"], name: "index_cost_house_locations_on_location_id"
+  end
+
   create_table "houses", force: :cascade do |t|
     t.string "sales_name"
     t.float "cost"
     t.string "build_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cost_house_locations_id"
+    t.index ["cost_house_locations_id"], name: "index_houses_on_cost_house_locations_id"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -71,6 +83,9 @@ ActiveRecord::Schema.define(version: 2020_12_05_153733) do
     t.bigint "user_id", null: false
     t.string "site_name"
     t.integer "number_of_plots"
+    t.date "start_date"
+    t.bigint "cost_house_locations_id"
+    t.index ["cost_house_locations_id"], name: "index_locations_on_cost_house_locations_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
@@ -102,7 +117,9 @@ ActiveRecord::Schema.define(version: 2020_12_05_153733) do
   add_foreign_key "cleans", "invoices"
   add_foreign_key "cleans", "locations"
   add_foreign_key "cleans", "plots"
+  add_foreign_key "houses", "cost_house_locations", column: "cost_house_locations_id"
   add_foreign_key "invoices", "locations"
+  add_foreign_key "locations", "cost_house_locations", column: "cost_house_locations_id"
   add_foreign_key "locations", "users"
   add_foreign_key "plots", "houses"
   add_foreign_key "plots", "locations"
