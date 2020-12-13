@@ -1,4 +1,5 @@
 class Location < ApplicationRecord
+    include Comparable
     belongs_to :user
     has_many :clean_requests, dependent: :destroy
     has_many :plots, dependent: :destroy
@@ -8,7 +9,7 @@ class Location < ApplicationRecord
     has_many :houses, :through => :cost_house_locations
 
     after_save :create_invoices
-    
+
     private 
         def create_invoices
             @site_start_date = self.start_date

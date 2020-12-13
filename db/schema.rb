@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_185852) do
+ActiveRecord::Schema.define(version: 2020_12_09_165020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,18 +44,19 @@ ActiveRecord::Schema.define(version: 2020_12_07_185852) do
   end
 
   create_table "cost_house_locations", force: :cascade do |t|
-    t.integer "cost"
     t.bigint "house_id"
     t.bigint "location_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "sparkle_cost"
+    t.float "build_cost"
+    t.float "demo_cost"
     t.index ["house_id"], name: "index_cost_house_locations_on_house_id"
     t.index ["location_id"], name: "index_cost_house_locations_on_location_id"
   end
 
   create_table "houses", force: :cascade do |t|
     t.string "sales_name"
-    t.float "cost"
     t.string "build_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

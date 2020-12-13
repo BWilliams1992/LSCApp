@@ -1,6 +1,6 @@
 class CostHouseLocationsController < ApplicationController
-  before_action :set_cost_house_location, only:[:show,:edit,:update]
-  before_action :set_location, only:[:show, :new, :create, :edit, :update]
+  before_action :set_cost_house_location, only:[:show,:edit,:update, :destroy]
+  before_action :set_location, only:[:show, :new, :create, :edit, :update, :destroy]
   def new
     @cost_house_location = CostHouseLocation.new
   end
@@ -25,11 +25,16 @@ class CostHouseLocationsController < ApplicationController
   end
 
   def update
-
+    if @cost_house_location.update(cost_house_location_params)
+      redirect_to @location
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-
+    @cost_house_location.destroy
+    redirect_to location_path(@location)
   end
 
 
@@ -37,7 +42,7 @@ class CostHouseLocationsController < ApplicationController
   private
 
     def cost_house_location_params 
-      params.require(:cost_house_location).permit(:cost, :house_id, :location_id)
+      params.require(:cost_house_location).permit(:build_cost, :demo_cost, :sparkle_cost, :house_id, :location_id)
     end
 
     def set_cost_house_location

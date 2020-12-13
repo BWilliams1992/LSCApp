@@ -10,10 +10,19 @@ Location: <%= @invoice.location.site_name %>
   </thead>
   <% @cleans.each do |clean| %>
     <tr>
-      <td><%= clean.id %> </td>
+      <td><%= link_to clean.id, clean_path(clean) %> </td>
       <td><%= clean.date%> </td>
       <td><%= Plot.find(clean.plot_id).number %> </td>
-      <td><%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).cost %> </td>
+      <td>
+        <% if clean.clean_type == "Build" %>
+          £<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).build_cost %> 
+        <% elsif clean.clean_type == "Demo" %>
+          £<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).demo_cost %> 
+        <% elsif clean.clean_type == "Sparkle" %>
+          £<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).sparkle_cost %> 
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
+
