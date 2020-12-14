@@ -44,7 +44,11 @@
     </div>
     <div class="card-body">
         <% @plots.each do |plot| %>
-            <%= link_to plot.number, location_plot_path(@location, plot) %>
+            <% if plot.house_id %>
+                <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-primary text-reset" %>
+            <% else %>
+                <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-secondary text-reset" %>
+            <% end %>
         <% end %>
     </div>
     <div class="card-footer">
