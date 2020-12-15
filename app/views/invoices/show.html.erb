@@ -1,27 +1,30 @@
-Start Date: <%= @invoice.start_date %> <br />
-End Date: <%= @invoice.end_date %> <br />
+Start Date: <%= @invoice.start_date.strftime("%d/%^b/%Y") %> <br />
+End Date: <%= @invoice.end_date.strftime("%d/%^b/%Y") %> <br />
 Location: <%= @invoice.location.site_name %>
 <table class='table table-striped table-hover'>
   <thead>
     <th scope="col">Clean No*</th>
     <th scope="col">Date</th>
     <th scope="col">Plot No*</th>
+    <th scope="col">Clean Type </th>
     <th scope="col">Cost </th>
   </thead>
   <% @cleans.each do |clean| %>
     <tr>
       <td><%= link_to clean.id, clean_path(clean) %> </td>
-      <td><%= clean.date%> </td>
+      <td><%= clean.date.strftime("%d/%m/%Y")%> </td>
       <td><%= Plot.find(clean.plot_id).number %> </td>
-      <td>
         <% if clean.clean_type == "Build" %>
-          £<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).build_cost %> 
+          <td><%= clean.clean_type %></td>
+          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).build_cost %> </td>
         <% elsif clean.clean_type == "Demo" %>
-          £<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).demo_cost %> 
+          <td><%= clean.clean_type %></td>
+          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).demo_cost %> </td>
         <% elsif clean.clean_type == "Sparkle" %>
-          £<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).sparkle_cost %> 
+          <td><%= clean.clean_type %></td>
+          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).sparkle_cost %> </td>
+
         <% end %>
-      </td>
     </tr>
   <% end %>
 </table>

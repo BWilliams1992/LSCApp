@@ -1,5 +1,6 @@
 class CleansController < ApplicationController
     before_action :set_clean, only: [:show,:edit,:update,:destroy]
+    load_and_authorize_resource
 
     def new 
         @clean = Clean.new
@@ -41,29 +42,6 @@ class CleansController < ApplicationController
         redirect_to cleans_path
     end
 
-    def convert
-        @clean_request = CleanRequest.find(params[:clean_request_id])
-        if !@clean_request.cleans[0]
-                @clean = Clean.new(
-                    date: @clean_request.date, 
-                    location_id: @clean_request.location_id,
-                    plot: @clean_request.plot_number,
-                    clean_type: @clean_request.clean_type,
-                    clean_request_id: @clean_request.id,
-                    completed: false
-                )
-                if @clean.save
-                    flash[:notice] = "Clean successfully generated from clean request"
-                else
-                    render 'show'
-                    flash[:error] = 'Error in conversion'
-                end
-            redirect_to cleans_path
-        else
-            raise  Exception.new("Cleans already exists for this clean request")
-        end
-    end
-
     private
 
         def set_clean
@@ -71,7 +49,7 @@ class CleansController < ApplicationController
         end
 
         def clean_params 
-            params.require(:clean).permit(:date, :location_id, :plot_id, :completed, :clean_type) 
+            params.require(:clean).permit(:date, :location_id, :plot_id, :completed, :clean_type, :clean_request) 
         end
 
 end

@@ -1,5 +1,6 @@
 class HousesController < ApplicationController
     before_action :set_house, only: [:show,:edit,:update,:destroy]
+    load_and_authorize_resource
         def new
             @house = House.new
         end

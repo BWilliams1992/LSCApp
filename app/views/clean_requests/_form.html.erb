@@ -7,8 +7,8 @@
     </div>
     
     <div class="form-group row">
-      <%= f.label :plot_numbers, class:"col-form-label col-2" %>
-      <%= f.text_field :plot_numbers, multiple: true, class:"form-control col-10"  %>
+      <%= f.label :plot_number, class:"col-form-label col-2" %>
+      <%= f.text_field :plot_number, class:"form-control col-10"  %>
     </div>
 
     <div class="form-group row">
@@ -18,7 +18,7 @@
 
     <div class="form-group row">
       <%= f.label :clean_type, 'Type of Clean', class:"col-form-label col-2"  %>
-      <%= f.select(:clean_type, options_for_select(["Sparkle", "Build", "Demo", "Post-paint", "Pre-paint"]), class:"form-control col-10") %>
+      <%= f.select(:clean_type, options_for_select(["Sparkle", "Build", "Demo"]), class:"form-control col-10") %>
     </div>
 
     <div class="form-group row">

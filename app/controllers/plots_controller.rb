@@ -1,6 +1,7 @@
 class PlotsController < ApplicationController
   before_action :set_plot, only:[:show,:edit,:update]
   before_action :set_location, only:[:show,:edit,:update]
+  load_and_authorize_resource
   def create 
     @plot = Plot.new(plot_params)
     @plot.save

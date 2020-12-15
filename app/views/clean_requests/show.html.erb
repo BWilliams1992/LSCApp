@@ -13,9 +13,16 @@
 <% if current_user.admin? %>
   <div>
     <h3>Admin</h3>
-    <% if !@clean_request.cleans %>
-      <h4>Convert to clean job </h4>
-       <%= link_to clean_request_convert_path(@clean_request), method: "get" %> 
+    <% if !@clean_request.approved %>
+      <%= form_with(model: @clean_request, local: true) do |f| %>
+          <div class="form-group row">
+            <%= f.label :approved, class:"col-form-label col-2"  %>
+          <%= f.check_box :approved, class:"form-control col-10" %>
+        </div>
+        <div class="form-group row justify-content-center">
+          <%= f.submit class:"btn btn-lg btn-primary" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 <% end %>

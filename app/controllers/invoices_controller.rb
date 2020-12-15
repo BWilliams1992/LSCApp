@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def new
     @invoice = Invoice.new

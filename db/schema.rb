@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_165020) do
+ActiveRecord::Schema.define(version: 2020_12_15_105607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2020_12_09_165020) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "plot_id"
     t.bigint "invoice_id"
+    t.bigint "clean_request_id"
+    t.index ["clean_request_id"], name: "index_cleans_on_clean_request_id"
     t.index ["invoice_id"], name: "index_cleans_on_invoice_id"
     t.index ["location_id"], name: "index_cleans_on_location_id"
     t.index ["plot_id"], name: "index_cleans_on_plot_id"
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_165020) do
 
   add_foreign_key "clean_requests", "locations"
   add_foreign_key "clean_requests", "users"
+  add_foreign_key "cleans", "clean_requests"
   add_foreign_key "cleans", "invoices"
   add_foreign_key "cleans", "locations"
   add_foreign_key "cleans", "plots"

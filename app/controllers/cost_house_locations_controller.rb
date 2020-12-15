@@ -1,6 +1,7 @@
 class CostHouseLocationsController < ApplicationController
   before_action :set_cost_house_location, only:[:show,:edit,:update, :destroy]
   before_action :set_location, only:[:show, :new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource
   def new
     @cost_house_location = CostHouseLocation.new
   end
