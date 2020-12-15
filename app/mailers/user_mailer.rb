@@ -11,7 +11,6 @@ class UserMailer < ApplicationMailer
     def clean_request_approval_change_email
         @clean_request = params[:clean_request]
         @user = params[:user]
-        @admin = params[:admin]
         mail(to:@user.email, subject: "Clean request update")
     end
 end

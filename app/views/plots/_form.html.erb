@@ -1,0 +1,10 @@
+<%= form_with(model: [@location, @location.plots.find(params[:id])], local: true) do |f| %>
+
+  <div class="form-group row">
+    <%= f.label :house_id, class:"col-form-label col-2"  %>
+    <%= f.collection_select :house_id, House.all, :id, :sales_name %>
+  </div>
+
+  <%= f.submit %>
+
+<% end %>

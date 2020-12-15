@@ -1,20 +1,57 @@
-<h3><%= @location.site_name %></h3>
-<div><%= @location.address1 %></div>
-<%= @location.address2 %>
-<div><%= @location.city %></div>
-<div><%= @location.postcode %></div>
+<div class="card mb-2">
+  <div class="card-header">
+    <h3><%= @location.site_name %></h3>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Address</h5>
+    <div>
+        <%= @location.address1 %>
+    </div>
+    <div>
+         <%= @location.address2 %>
+    </div>
+    <div>
+        City:<%= @location.city %>  
+    </div>
+    <div>
+        Postcode:<%= @location.postcode %>   
+    </div>
+      <div>
+        <%= link_to 'Edit', edit_location_path(@location), class:"btn btn-large btn-primary" %>
+        <%= link_to 'Delete', location_path, method: :delete, data:{ confirm: "Are you sure? "}, class:"btn btn-large btn-danger" %>
+    </div>
+  </div>
 
-<div>
-    <%= link_to 'Edit', edit_location_path(@location) %>
 </div>
 
-<div> 
-    <%= link_to 'Delete', location_path, method: :delete, data:{ confirm: "Are you sure? "} %>
+<div class="card">
+    <div class="card-header">
+        <h3>Houses </h3>
+    </div>
+    <div class="card-body">
+        <% @location.cost_house_locations.each do |cost| %>
+            <%= link_to cost.house.sales_name, location_cost_house_location_path(@location,cost)  %>
+        <% end %>
+    </div>
+    <div class="card-footer">
+        <%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %>
+    </div>
 </div>
-<br />
-<div>
-    <%= link_to 'Houses', location_houses_path(params[:id]) %>
-</div>
-<div>
-    <%= link_to 'New House', new_location_house_path(params[:id]) %>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Plots </h3>
+    </div>
+    <div class="card-body">
+        <% @plots.each do |plot| %>
+            <% if plot.house_id %>
+                <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-primary text-reset" %>
+            <% else %>
+                <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-secondary text-reset" %>
+            <% end %>
+        <% end %>
+    </div>
+    <div class="card-footer">
+        
+    </div>
 </div>

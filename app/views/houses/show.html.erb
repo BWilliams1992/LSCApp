@@ -1,3 +1,4 @@
 <h1><%= @house.sales_name %></h1>
 <p>Build number:<%= @house.build_number %></p>
-<p>Cost: £<%= @house.cost %></p>
+
+<div><%= link_to 'Edit', edit_house_path(@house) %> </div>

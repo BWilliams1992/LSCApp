@@ -1,0 +1,6 @@
+<%= @cost_house_location.house.sales_name %> on <%= @cost_house_location.location.site_name %> <br />
+Build £<%= @cost_house_location.build_cost %> <br />
+Demo £<%= @cost_house_location.demo_cost %> <br />
+Sparkle £<%= @cost_house_location.sparkle_cost %> <br />
+<%= link_to 'Edit', edit_location_cost_house_location_path(@cost_house_location.location,@cost_house_location)%>
+<%= link_to 'Delete', location_cost_house_location_path(@cost_house_location.location, @cost_house_location), method: :delete%>

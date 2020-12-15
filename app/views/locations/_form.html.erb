@@ -13,17 +13,27 @@
     
     <div class="form-group row">
       <%= f.label :address2, "Address line 2", class:"col-form-label col-2" %>
-      <%= f.text_field :address1, class:"form-control col-10"  %>
+      <%= f.text_field :address2, class:"form-control col-10"  %>
     </div>
         
     <div class="form-group row">
       <%= f.label :city, class:"col-form-label col-2" %>
-      <%= f.text_field :address1, class:"form-control col-10"  %>
+      <%= f.text_field :city, class:"form-control col-10"  %>
     </div>
 
     <div class="form-group row">
       <%= f.label :postcode, class:"col-form-label col-2" %>
       <%= f.text_field :postcode, class:"form-control col-10"  %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :number_of_plots, class:"col-form-label col-2" %>
+      <%= f.text_field :number_of_plots, class:"form-control col-10"  %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :start_date, class:"col-form-label col-2" %>
+      <%= f.date_field :start_date, class:"form-control col-10"  %>
     </div>
 
     <div class="form-group row justify-content-center">

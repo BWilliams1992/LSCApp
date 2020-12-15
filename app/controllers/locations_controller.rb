@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
     before_action :set_location, only: [:show,:edit,:update,:destroy]
+    load_and_authorize_resource
 
     def new
         @location = Location.new 
@@ -8,7 +9,11 @@ class LocationsController < ApplicationController
     def create 
         @location = Location.new(location_params)
         @location.user_id = current_user.id 
-        if @location.save 
+        @plots = params[:location][:number_of_plots].to_i
+        for i in 1..@plots do
+            @location.plots.build(number: i)
+        end
+        if @location.save! 
             flash[:notice] = "Location successfully created"
             redirect_to @location
         else
@@ -17,6 +22,9 @@ class LocationsController < ApplicationController
     end
 
     def show
+        @plots = @location.plots.sort_by {
+            |plot| plot.number
+        }
     end
 
     def update
@@ -48,6 +56,6 @@ class LocationsController < ApplicationController
         end
 
         def location_params
-            params.require(:location).permit(:site_name, :address1, :address2, :city, :county, :postcode, :user_id)
+            params.require(:location).permit(:site_name, :address1, :address2, :city, :county, :postcode, :user_id, :number_of_plots, :start_date)
         end
 end

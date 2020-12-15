@@ -1,24 +1,29 @@
-<div class="container">
+<div class="container" data-controller="cleansForm">
   <%= form_with(model: @clean, local: true) do |f| %>
 
     <div class="form-group row">
+     
       <%= f.label "Location: ", class:"col-form-label col-2"%>
-      <%= f.collection_select :location_id, Location.all, :id, :site_name %>
+      <%= f.collection_select :location_id, Location.all, :id, :site_name, {prompt: true}, {class: "form-control col-10", data: { action: "change->cleansForm#changeOnLocation", target:"cleansForm.locationSelector"}} %>
     </div>
 
     <div class="form-group row">
-      <%= f.label :plot_numbers, class:"col-form-label col-2" %>
-      <%= f.text_field :plot_numbers, class:"form-control col-10"  %>
+      <%= f.label "Plot: ", class:"col-form-label col-2"%>
+      <%= f.grouped_collection_select :plot_id, Location.all, :plots , :site_name, :id, :number, {}, {class: "form-control col-10", data: {target: "cleansForm.plotSelector"}} %>
     </div>
-
     <div class="form-group row">
       <%= f.label :date, class:"col-form-label col-2"  %>
       <%= f.date_field :date, class:"form-control col-10"%>
     </div>
 
     <div class="form-group row">
-      <%= f.label :clean, 'Type of Clean', class:"col-form-label col-2"  %>
-      <%= f.text_field :clean, class:"form-control col-10" %>
+      <%= f.label :clean_type, 'Type of Clean', class:"col-form-label col-2"  %>
+      <%= f.select(:clean_type, options_for_select(["Sparkle", "Build", "Demo", "Post-paint", "Pre-paint"]), {}, {class:"form-control col-10"}) %>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :completed, class:"col-form-label col-2"  %>
+      <%= f.check_box :completed, class:"form-control col-10" %>
     </div>
 
     <div class="form-group row justify-content-center">

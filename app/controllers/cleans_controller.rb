@@ -1,5 +1,6 @@
 class CleansController < ApplicationController
     before_action :set_clean, only: [:show,:edit,:update,:destroy]
+    load_and_authorize_resource
 
     def new 
         @clean = Clean.new
@@ -7,7 +8,7 @@ class CleansController < ApplicationController
 
     def create
         @clean = Clean.new(clean_params)
-        if @clean.save
+        if @clean.save!
             flash[:notice] = "Clean was succesfully created!"
             redirect_to @clean
         else
@@ -24,7 +25,7 @@ class CleansController < ApplicationController
     end
 
     def update
-        if @clean.update(clean_params)
+        if @clean.update!(clean_params)
             flash[:notice] = "Clean successfully updated!"
             redirect_to @clean
           else
@@ -39,7 +40,7 @@ class CleansController < ApplicationController
         @clean.destroy
         flash[:notice] = "Clean removed"
         redirect_to cleans_path
-      end
+    end
 
     private
 
@@ -48,7 +49,7 @@ class CleansController < ApplicationController
         end
 
         def clean_params 
-            params.require(:clean).permit(:date, :site_id, :plot, :house_id, :completed, :type) 
+            params.require(:clean).permit(:date, :location_id, :plot_id, :completed, :clean_type, :clean_request) 
         end
 
 end

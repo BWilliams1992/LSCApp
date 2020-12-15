@@ -1,23 +1,10 @@
 <div class="jumbotron">
-  <h1 class="display-4">Clean Request</h1>
-    <div> Date Requested:<%= @clean_request.date%> </div>
-    <div> Location: <%= @clean_request.location.site_name  if @clean_request.location %> </div>
-    <div> Plot Numbers:<%= @clean_request.plot_numbers%> </div>
-    <div> Notes:<%= @clean_request.notes%> </div>
-    <div> Requested by: <%= User.find(@clean_request.user_id).email %></div>
-    <div><%= link_to 'Edit', edit_clean_request_path(@clean_request) %></div>
-    <div><%= link_to 'Delete request', @clean_request, method:(:delete), data: { confirm: "Are you sure?"} %></div>
+  <h1 class="display-4">Clean</h1>
+    <div>Date:<%= @clean.date %> </div>
+    <div>Location: <%= Location.find(@clean.location_id).site_name  if @clean.location_id %> </div>
+    <div>Plot:<%= Plot.find(@clean.plot_id).number if @clean.plot_id %> </div>
+    <div>House: </div>
+    <div>Type of Clean: <%= @clean.clean_type %> </div>
+    <div><%= link_to 'Edit', edit_clean_path(@clean) %></div>
+    <div><%= link_to 'Delete request', @clean, method:(:delete), data: { confirm: "Are you sure?"} %></div>
 </div>
-
-<% if current_user.admin? %>
-  <div>
-    <h3>Admin</h3>
-    <%= form_with(model: @clean_request, local: true) do |f| %>
-      <%= f.label :approved %>
-      <%= f.radio_button(:approved, true) %>
-      <%= f.label :approved, "Denied" %>
-      <%= f.radio_button(:approved, false) %>
-      <%= f.submit %>
-    <% end %>
-  </div>
-<% end %>

@@ -1,0 +1,25 @@
+<%= form_with(model: [@location, @cost_house_location ], local: true) do |f| %>
+
+  <div class="form-group row">
+    <%= f.label :build_cost, class:"col-form-label col-2"  %>
+    <%= f.text_field :build_cost %>
+  </div>
+  <div class="form-group row">
+    <%= f.label :demo_cost, class:"col-form-label col-2"  %>
+    <%= f.text_field :demo_cost %>
+  </div>
+  <div class="form-group row">
+    <%= f.label :sparkle_cost, class:"col-form-label col-2"  %>
+    <%= f.text_field :sparkle_cost %>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :house_id, class:"col-form-label col-2"  %>
+    <%= f.collection_select :house_id, House.all, :id, :sales_name %>
+  </div>
+
+  <%= f.hidden_field :location_id, value: @location.id %>
+
+  <%= f.submit %>
+
+<% end %>

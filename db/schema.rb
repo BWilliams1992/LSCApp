@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_170334) do
+ActiveRecord::Schema.define(version: 2020_12_15_105607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 2020_10_30_170334) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.integer "plot_numbers"
-    t.string "clean"
+    t.string "clean_type"
     t.text "notes"
     t.boolean "approved"
     t.date "date"
     t.bigint "location_id"
+    t.string "plot_number"
     t.index ["location_id"], name: "index_clean_requests_on_location_id"
     t.index ["user_id"], name: "index_clean_requests_on_user_id"
   end
@@ -32,24 +32,47 @@ ActiveRecord::Schema.define(version: 2020_10_30_170334) do
   create_table "cleans", force: :cascade do |t|
     t.date "date"
     t.bigint "location_id"
-    t.integer "plot"
-    t.bigint "house_id"
     t.boolean "completed"
-    t.string "type"
+    t.string "clean_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["house_id"], name: "index_cleans_on_house_id"
+    t.bigint "plot_id"
+    t.bigint "invoice_id"
+    t.bigint "clean_request_id"
+    t.index ["clean_request_id"], name: "index_cleans_on_clean_request_id"
+    t.index ["invoice_id"], name: "index_cleans_on_invoice_id"
     t.index ["location_id"], name: "index_cleans_on_location_id"
+    t.index ["plot_id"], name: "index_cleans_on_plot_id"
+  end
+
+  create_table "cost_house_locations", force: :cascade do |t|
+    t.bigint "house_id"
+    t.bigint "location_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "sparkle_cost"
+    t.float "build_cost"
+    t.float "demo_cost"
+    t.index ["house_id"], name: "index_cost_house_locations_on_house_id"
+    t.index ["location_id"], name: "index_cost_house_locations_on_location_id"
   end
 
   create_table "houses", force: :cascade do |t|
     t.string "sales_name"
-    t.float "cost"
     t.string "build_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cost_house_locations_id"
+    t.index ["cost_house_locations_id"], name: "index_houses_on_cost_house_locations_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "start_date"
+    t.date "end_date"
     t.bigint "location_id", null: false
-    t.index ["location_id"], name: "index_houses_on_location_id"
+    t.index ["location_id"], name: "index_invoices_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -62,7 +85,21 @@ ActiveRecord::Schema.define(version: 2020_10_30_170334) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.string "site_name"
+    t.integer "number_of_plots"
+    t.date "start_date"
+    t.bigint "cost_house_locations_id"
+    t.index ["cost_house_locations_id"], name: "index_locations_on_cost_house_locations_id"
     t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "plots", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "number"
+    t.bigint "house_id"
+    t.index ["house_id"], name: "index_plots_on_house_id"
+    t.index ["location_id"], name: "index_plots_on_location_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,8 +117,14 @@ ActiveRecord::Schema.define(version: 2020_10_30_170334) do
 
   add_foreign_key "clean_requests", "locations"
   add_foreign_key "clean_requests", "users"
-  add_foreign_key "cleans", "houses"
+  add_foreign_key "cleans", "clean_requests"
+  add_foreign_key "cleans", "invoices"
   add_foreign_key "cleans", "locations"
-  add_foreign_key "houses", "locations"
+  add_foreign_key "cleans", "plots"
+  add_foreign_key "houses", "cost_house_locations", column: "cost_house_locations_id"
+  add_foreign_key "invoices", "locations"
+  add_foreign_key "locations", "cost_house_locations", column: "cost_house_locations_id"
   add_foreign_key "locations", "users"
+  add_foreign_key "plots", "houses"
+  add_foreign_key "plots", "locations"
 end

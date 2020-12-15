@@ -1,3 +1,12 @@
-<% @location.houses.each do |house| %>
-    <%= link_to house.sales_name, location_house_path(@location, house) %>
-<% end %>
+<h1>House Index</h1>
+<ul class="list-group">
+    <% @houses.each do |house| %>
+        <li class="list-group-item list-group-item-action">
+            <%= link_to house.sales_name, house_path(house) %>
+        </li>
+    <% end %>
+</ul>
+
+<div>
+    <%= link_to 'New House', new_house_path %>
+</div>

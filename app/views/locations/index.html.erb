@@ -1,6 +1,11 @@
-<% @locations.each do |location| %>
-    <div><%= link_to location.site_name, location_path(location.id) %></div>
-<% end %>
+<h1>Sites Index</h1>
+<ul class="list-group">
+    <% @locations.each do |location| %>
+        <li class="list-group-item list-group-item-action">
+            <%= link_to location.site_name, location_path(location.id) %>
+        </li>
+    <% end %>
+</ul>
 
 <div>
     <%= link_to 'New Location', new_location_path %>
