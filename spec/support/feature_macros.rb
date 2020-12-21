@@ -1,4 +1,4 @@
-module ControllerMacros
+module FeatureMacros
   def login_user
     # Before each test, create and login the user
     before(:each) do
