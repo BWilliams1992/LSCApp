@@ -1,5 +1,12 @@
 class Location < ApplicationRecord
     include Comparable
+    validates :site_name, presence:true
+    validates :address1, presence:true
+    validates :city, presence:true
+    validates :postcode, presence:true
+    validates :number_of_plots, presence:true
+    validates :start_date, presence:true
+
     belongs_to :user
     has_many :clean_requests, dependent: :destroy
     has_many :plots, dependent: :destroy
@@ -8,9 +15,15 @@ class Location < ApplicationRecord
     has_many :cost_house_locations
     has_many :houses, :through => :cost_house_locations
 
-    after_save :create_invoices
+    after_save :create_plots, :create_invoices
 
     private 
+        def create_plots
+            for i in 1..self.number_of_plots
+                self.plots.create(number: i)
+            end    
+        end
+
         def create_invoices
             @site_start_date = self.start_date
             @today  = Date.today

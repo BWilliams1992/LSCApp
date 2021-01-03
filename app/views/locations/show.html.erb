@@ -34,7 +34,11 @@
         <% end %>
     </div>
     <div class="card-footer">
-        <%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %>
+        <% if House.count > 0 %>
+            <%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %>
+        <% else %>
+           No Houses in database would you like to  <%= link_to 'Create a House', new_house_path %>
+        <% end %>
     </div>
 </div>
 
