@@ -49,7 +49,7 @@ RSpec.describe Invoice, type: :model do
       expect(invoice.pending_cost).to eq(100)
     end
     
-    it 'totals the cost of the cleans associated with itself' do
+    it 'totals the cost of all cleans associated with itself' do
       expect(invoice.total_cost).to eq(280)
     end
 
