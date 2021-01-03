@@ -44,11 +44,15 @@ describe 'creation' do
     fill_in 'location_site_name' , with: 'Test name'
     fill_in 'location_address1' , with: 'Test address1'
     fill_in 'location_address2' , with: 'Test address2'
+    fill_in 'location_city', with: 'Test City'
+    fill_in 'location_postcode', with: 'Test Postcode'
     fill_in 'location_number_of_plots' , with: '10'
     fill_in 'location_start_date' , with: Date.today.last_month()
     click_on 'commit'
 
     expect(page).to have_content('Test name')
+    #testing to see that it creates plots after it has been created.
+    expect(Location.last.plots.count).to eq(10)
   end
 end
 end
