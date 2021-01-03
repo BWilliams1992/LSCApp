@@ -19,6 +19,7 @@ RSpec.describe Invoice, type: :model do
     end
     @clean1 = create(:clean, location_id:@location.id, plot_id: @location.plots.first.id, invoice_id: invoice.id, completed: true )
     @clean2 = create(:clean, location_id:@location.id, plot_id: @location.plots.second.id, invoice_id: invoice.id, completed: true, clean_type:"Sparkle" )
+    @clean2 = create(:clean, location_id:@location.id, plot_id: @location.plots.third.id, invoice_id: invoice.id )
   end
 
   let(:valid_attributes){
@@ -39,6 +40,12 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe 'total calculation' do
+
+    it 'totals the cost of completed cleans associated with itself' do
+      expect(invoice.completed_cost).to eq(180)
+    end
+
+    it 'totals the cost of pending cleans associated with itself'
     
     it 'totals the cost of the cleans associated with itself' do
       expect(invoice.total_cost).to eq(180)
