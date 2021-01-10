@@ -1,3 +1,9 @@
-<%= @plot.number %> <br />
-<%= House.find(@plot.house_id).sales_name if @plot.house_id %>
-<%= link_to 'Edit', edit_location_plot_path(@location, @plot)%>
+<h1>Plot Number <%= @plot.number %></h1>
+<ul>
+  <li> Site: <%= @plot.location.site_name %> </li>
+  <li>House Type: <%= House.find(@plot.house_id).sales_name if @plot.house_id %> </li>
+</ul>
+
+<h3>Cleans </h3>
+
+<%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %>
