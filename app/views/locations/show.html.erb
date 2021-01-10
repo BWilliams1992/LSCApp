@@ -49,7 +49,7 @@
     <div class="card-body">
         <% @plots.each do |plot| %>
             <% if plot.house_id %>
-                <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-primary text-reset" %>
+                <%= link_to plot.number, location_plot_path(@location, plot), class: "fs-1" %>
             <% else %>
                 <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-secondary text-reset" %>
             <% end %>
