@@ -29,6 +29,8 @@ gem 'devise'
 
 gem 'cancancan'
 
+gem 'omniauth'
+
 gem 'omniauth-google-oauth2'
 
 # Reduces boot times through caching; required in config/boot.rb
