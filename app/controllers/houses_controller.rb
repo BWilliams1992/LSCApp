@@ -17,6 +17,18 @@ class HousesController < ApplicationController
     
         def show
         end
+
+        def edit
+        end
+
+        def update
+            if @house.update(house_params)
+                flash[:notice] = "House updated"
+                redirect_to @house
+            else
+                render 'edit'
+            end
+        end
     
         def index
             @houses = House.all
@@ -29,7 +41,7 @@ class HousesController < ApplicationController
             end
     
             def house_params
-                params.require(:house).permit(:sales_name, :build_number, :cost)
+                params.require(:house).permit(:sales_name, :build_number, :bedrooms)
             end
     
     end
