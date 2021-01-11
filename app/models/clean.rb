@@ -1,5 +1,6 @@
 class Clean < ApplicationRecord
   belongs_to :invoice
+  belongs_to :plot
   
   before_validation :set_invoice
   

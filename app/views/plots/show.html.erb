@@ -4,6 +4,13 @@
   <li>House Type: <%= House.find(@plot.house_id).sales_name if @plot.house_id %> </li>
 </ul>
 
-<h3>Cleans </h3>
-
-<%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %>
+<h2>Cleans </h2>
+<hr />
+<h4>Build </h4>
+<%= @plot.cleans.find_by(clean_type: "Build") != nil ? link_to(@plot.cleans.find_by(clean_type: "Build").date, @plot.cleans.find_by(clean_type: "Build")) : "N/A" %>
+<h4>Sparkle </h4>
+<%= @plot.cleans.find_by(clean_type: "Sparkle") != nil ? link_to(@plot.cleans.find_by(clean_type: "Sparkle").date, @plot.cleans.find_by(clean_type: "Sparkle")) : "N/A" %>
+<h4>Demo </h4>
+<%= @plot.cleans.find_by(clean_type: "Demo") != nil ? link_to(@plot.cleans.find_by(clean_type: "Demo").date, @plot.cleans.find_by(clean_type: "Demo")) : "N/A" %>
+<hr />
+<p><%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %></p>
