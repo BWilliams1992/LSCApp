@@ -1,4 +1,4 @@
-<div class="card mb-2">
+<div class="card mb-2", style= "background-image: url(<%= url_for(@location.layout) %>); background-size: 50%; background-repeat: no-repeat; background-position: center;">
   <div class="card-header">
     <h3><%= @location.site_name %></h3>
   </div>
@@ -16,7 +16,7 @@
     <div>
         Postcode:<%= @location.postcode %>   
     </div>
-      <div>
+    <div>
         <%= link_to 'Edit', edit_location_path(@location), class:"btn btn-large btn-primary" %>
         <%= link_to 'Delete', location_path, method: :delete, data:{ confirm: "Are you sure? "}, class:"btn btn-large btn-danger" %>
     </div>

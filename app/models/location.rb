@@ -15,7 +15,9 @@ class Location < ApplicationRecord
     has_many :cost_house_locations
     has_many :houses, :through => :cost_house_locations
 
-    after_save :create_plots, :create_invoices
+    has_one_attached :layout
+
+    after_create :create_plots, :create_invoices
 
     private 
         def create_plots

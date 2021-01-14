@@ -29,7 +29,7 @@ gem 'devise'
 
 gem 'cancancan'
 
-gem 'omniauth', '~> 1.0.0.pr2'
+gem 'omniauth'
 
 gem 'omniauth-google-oauth2'
 
