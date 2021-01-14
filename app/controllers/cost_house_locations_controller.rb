@@ -43,7 +43,7 @@ class CostHouseLocationsController < ApplicationController
   private
 
     def cost_house_location_params 
-      params.require(:cost_house_location).permit(:build_cost, :demo_cost, :sparkle_cost, :house_id, :location_id)
+      params.require(:cost_house_location).permit(:pre_paint_cost, :post_paint_cost, :demo_cost, :sparkle_cost, :house_id, :location_id)
     end
 
     def set_cost_house_location

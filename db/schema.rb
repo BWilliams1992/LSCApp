@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_175112) do
+ActiveRecord::Schema.define(version: 2021_01_14_125153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,8 +51,9 @@ ActiveRecord::Schema.define(version: 2021_01_11_175112) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "sparkle_cost"
-    t.float "build_cost"
     t.float "demo_cost"
+    t.float "pre_paint_cost"
+    t.float "post_paint_cost"
     t.index ["house_id"], name: "index_cost_house_locations_on_house_id"
     t.index ["location_id"], name: "index_cost_house_locations_on_location_id"
   end

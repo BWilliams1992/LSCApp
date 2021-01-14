@@ -14,8 +14,10 @@ class Invoice < ApplicationRecord
             @total += @cost_house_location.sparkle_cost
           elsif clean.clean_type == 'Demo'
             @total += @cost_house_location.demo_cost
-          elsif clean.clean_type == 'Build'
-            @total += @cost_house_location.build_cost
+          elsif clean.clean_type == 'Pre-Paint'
+            @total += @cost_house_location.pre_paint_cost
+          elsif clean.clean_type == 'Post-Paint'
+            @total += @cost_house_location.post_paint_cost
           end
         end
       end
@@ -34,8 +36,10 @@ class Invoice < ApplicationRecord
             @total += @cost_house_location.sparkle_cost
           elsif clean.clean_type == 'Demo'
             @total += @cost_house_location.demo_cost
-          elsif clean.clean_type == 'Build'
-            @total += @cost_house_location.build_cost
+          elsif clean.clean_type == 'Pre-Paint'
+            @total += @cost_house_location.pre_paint_cost
+          elsif clean.clean_type == 'Post-Paint'
+            @total += @cost_house_location.post_paint_cost
           end
         end
       end

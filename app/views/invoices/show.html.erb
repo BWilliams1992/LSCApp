@@ -14,9 +14,9 @@ Location: <%= @invoice.location.site_name %>
       <td><%= link_to clean.id, clean_path(clean) %> </td>
       <td><%= clean.date.strftime("%d/%m/%Y")%> </td>
       <td><%= Plot.find(clean.plot_id).number %> </td>
-        <% if clean.clean_type == "Build" %>
+        <% if clean.clean_type == "Pre-Paint" %>
           <td><%= clean.clean_type %></td>
-          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).build_cost %> </td>
+          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).pre_paint_cost %> </td>
         <% elsif clean.clean_type == "Demo" %>
           <td><%= clean.clean_type %></td>
           <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).demo_cost %> </td>

@@ -24,23 +24,35 @@
 
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <h3>Houses </h3>
-    </div>
-    <div class="card-body">
-        <% @location.cost_house_locations.each do |cost| %>
-            <%= link_to cost.house.sales_name, location_cost_house_location_path(@location,cost)  %>
-        <% end %>
-    </div>
-    <div class="card-footer">
+<h3>House price listing </h3>
+
+<table class='table table-striped table-hover'>
+    <thead>
+        <th>Sales Name </th>
+        <th>Pre Paint </th> 
+        <th>Post Paint </th>
+        <th>Demo </th>
+        <th>Sparkle </th>
+    </thead>
+    <% @location.cost_house_locations.each do |cost| %>
+        <tr>
+            <td><%= link_to cost.house.sales_name, location_cost_house_location_path(@location,cost)  %> </td>
+            <td>£<%= cost.pre_paint_cost %></td>
+            <td>£<%= cost.post_paint_cost %></td>
+            <td>£<%= cost.demo_cost %></td>
+            <td>£<%= cost.sparkle_cost %></td>
+        </tr>
+    <% end %>
+    <tfoot>
         <% if House.count > 0 %>
-            <%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %>
+            <td><%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %></td>
         <% else %>
-           No Houses in database would you like to  <%= link_to 'Create a House', new_house_path %>
+            <td>No Houses in database would you like to  <%= link_to 'Create a House', new_house_path %></td>
         <% end %>
-    </div>
-</div>
+    </tfoot>
+</table>
+
+
 
 <div class="card">
     <div class="card-header">
@@ -54,8 +66,5 @@
                 <%= link_to plot.number, location_plot_path(@location, plot), class: "badge bg-secondary text-decoration-none plot-badge" %>
             <% end %>
         <% end %>
-    </div>
-    <div class="card-footer">
-        
     </div>
 </div>
