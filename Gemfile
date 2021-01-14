@@ -29,7 +29,7 @@ gem 'devise'
 
 gem 'cancancan'
 
-gem 'omniauth'
+gem 'omniauth', '~> 1.6', '>= 1.6.1'
 
 gem 'omniauth-google-oauth2'
 
