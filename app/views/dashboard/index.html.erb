@@ -1,0 +1,22 @@
+<h1>Dashboard</h1>
+<hr />
+
+<div class="py-3">
+  <h3>Todays Cleans <span class="badge badge-secondary"><%= @today_cleans.count %> </span> </h3>
+  <% if @today_cleans.count > 0 %>
+    <% @today_cleans.each do |clean| %>
+      <p><%= link_to(clean.date, clean_path(clean)) %></p>
+    <% end %>
+  <% else %>
+    <hr />
+    <p>No cleans scheduled today </p>
+  <% end %>
+</div>
+
+<div class="py-3">
+  <h3> Cleans this month <span class="badge badge-secondary"><%= @month_cleans.count %> </span> </h3> 
+    <%= render '/shared/cleans-table-header.html.erb' %>
+      <% @month_cleans.each do |clean| %>
+    <%= render '/shared/clean-table-row.html.erb', clean: clean %>
+  <% end %>
+</div>
