@@ -1,10 +1,11 @@
 class Invoice < ApplicationRecord
-  has_many :cleans
+  
   belongs_to :location
 
   def completed_cost
+    #Returns the total cost of completed cleans 
     @total = 0
-      self.cleans.each do |clean|
+      invoice_cleans.each do |clean|
         @location = self.location
         @plot = Plot.find(clean.plot_id)
         @house = House.find(@plot.house_id)
@@ -25,8 +26,9 @@ class Invoice < ApplicationRecord
   end
 
   def pending_cost
+    #Returns the total cost of pending cleans 
     @total = 0
-      self.cleans.each do |clean|
+      invoice_cleans.each do |clean|
         @location = self.location
         @plot = Plot.find(clean.plot_id)
         @house = House.find(@plot.house_id)
@@ -46,8 +48,18 @@ class Invoice < ApplicationRecord
       return @total
   end
 
-    def total_cost 
-      @total = self.completed_cost + self.pending_cost
-      return @total
-    end
+  def total_cost 
+    #Returns the total cost of all associated cleans 
+    @total = self.completed_cost + self.pending_cost
+    return @total
+  end
+
+  def invoice_cleans
+    #Returns an ActiveModel collection of cleans that are within the start and end dates of the invoice
+    @site_cleans = Clean.where(location_id: self.location_id)
+    @site_start_date_cleans = @site_cleans.where('date >= ?', self.start_date)
+    @site_month_cleans = @site_start_date_cleans.where('date <= ?', self.end_date)
+
+    return @site_month_cleans
+  end
 end
