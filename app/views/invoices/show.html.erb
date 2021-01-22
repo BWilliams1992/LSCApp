@@ -19,7 +19,7 @@ Location: <%= @invoice.location.site_name %>
           <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).pre_paint_cost %> </td>
         <% elsif clean.clean_type == "Post-Paint" %>
           <td><%= clean.clean_type %></td>
-          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).post_cost %> </td>
+          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).post_paint_cost %> </td>
         <% elsif clean.clean_type == "Demo" %>
           <td><%= clean.clean_type %></td>
           <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).demo_cost %> </td>
