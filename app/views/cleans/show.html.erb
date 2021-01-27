@@ -6,5 +6,5 @@
     <div>House: </div>
     <div>Type of Clean: <%= @clean.clean_type %> </div>
     <div><%= link_to 'Edit', edit_clean_path(@clean) %></div>
-    <div><%= link_to 'Delete request', @clean, method:(:delete), data: { confirm: "Are you sure?"} %></div>
+    <div><%= link_to 'Delete clean', @clean, method:(:delete), data: { confirm: "Are you sure?"} %></div>
 </div>

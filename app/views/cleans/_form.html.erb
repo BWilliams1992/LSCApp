@@ -2,7 +2,6 @@
   <%= form_with(model: @clean, local: true) do |f| %>
 
     <div class="form-group row">
-     
       <%= f.label "Location: ", class:"col-form-label col-2"%>
       <%= f.collection_select :location_id, Location.all, :id, :site_name, {prompt: true}, {class: "form-control col-10", data: { action: "change->cleansForm#changeOnLocation", target:"cleansForm.locationSelector"}} %>
     </div>
@@ -21,14 +20,28 @@
       <%= f.select(:clean_type, options_for_select(["Pre-Paint","Post-Paint", "Sparkle", "Demo","Variation Order"]), {}, {class:"form-control col-10"}) %>
     </div>
 
+    <%= javascript_pack_tag 'showHideToggle'%>
+
     <div class="form-group row">
       <%= f.label :completed, class:"col-form-label col-2"  %>
-      <%= f.check_box :completed, class:"form-control col-10" %>
+      <%= f.check_box :completed,  class:"form-control col-8"  %>
+      <%= button_tag('Show/hide times', type: "button", id:"toggleButton", class:"btn btn-secondary col-2 ")%>
+    </div>
+    
+    <div id="toggler">
+      <div class="form-group row">
+        <%= f.label :start_time, class:"col-form-label col-2"  %>
+        <%= f.time_field :start_time, class:"form-control col-10"%>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :end_time, class:"col-form-label col-2"  %>
+        <%= f.time_field :end_time, class:"form-control col-10"%>
+      </div>
     </div>
 
     <div class="form-group row justify-content-center">
-      <%= f.submit class:"btn btn-lg btn-primary" %>
+      <%= f.submit class: "btn btn-lg btn-primary" %>
     </div>
-
   <% end %>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_163715) do
+ActiveRecord::Schema.define(version: 2021_01_25_173441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2021_01_22_163715) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "plot_id"
     t.bigint "clean_request_id"
+    t.time "start_time"
+    t.time "end_time"
     t.index ["clean_request_id"], name: "index_cleans_on_clean_request_id"
     t.index ["location_id"], name: "index_cleans_on_location_id"
     t.index ["plot_id"], name: "index_cleans_on_plot_id"
@@ -75,6 +77,13 @@ ActiveRecord::Schema.define(version: 2021_01_22_163715) do
     t.float "post_paint_cost"
     t.index ["house_id"], name: "index_cost_house_locations_on_house_id"
     t.index ["location_id"], name: "index_cost_house_locations_on_location_id"
+  end
+
+  create_table "extras", force: :cascade do |t|
+    t.string "name"
+    t.float "cost"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "houses", force: :cascade do |t|

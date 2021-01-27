@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     resources :plots
   end
   resources :houses
+  resources :extras
   resources :invoices
 end
