@@ -1,2 +1,3 @@
-<h1>Extras#show</h1>
-<p>Find me in app/views/extras/show.html.erb</p>
+<h1><%=@extra.name%></h1>
+<p>Cost: £<%= @extra.cost%></p>
+<%= link_to 'Edit', edit_extra_path(@extra) %>

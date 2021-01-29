@@ -1,2 +1,7 @@
 <h1>Extras#index</h1>
-<p>Find me in app/views/extras/index.html.erb</p>
+<% @extras.each do |extra| %> 
+  <%= link_to extra.name, extra %> £<%= extra.cost%>
+<% end %>
+<hr />
+<%= link_to 'New Extra', new_extra_path %>
+

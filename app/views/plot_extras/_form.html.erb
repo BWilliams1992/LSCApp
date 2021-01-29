@@ -1,0 +1,10 @@
+<%= form_with(model: [@location,@plot, @plot_extra ], local: true) do |f| %>
+
+  <div class="form-group row">
+    <%= f.label :extra_id, class:"col-form-label col-2"  %>
+    <%= f.collection_select :extra_id, Extra.all, :id, :name %>
+  </div>
+
+  <%= f.submit %>
+
+<% end %>

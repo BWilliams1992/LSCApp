@@ -15,4 +15,12 @@
 <h4>Sparkle</h4>
 <%= render 'clean', clean:@plot.cleans.find_by(clean_type: "Sparkle") %>
 <hr />
+<h2>Plot Extras </h2>
+<% if @plot.plot_extras %>
+  <% @plot.plot_extras.each do |extra|%>
+    <%= link_to extra.extra.name, edit_location_plot_plot_extra_path(@plot.location, @plot, extra ) %> £ <%= extra.extra.cost%> <br />
+  <% end %>
+<% end %>
+<%= link_to 'Add an extra', new_location_plot_plot_extra_path(@plot.location,@plot) %>
+<hr />
 <p><%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %></p>
