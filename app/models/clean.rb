@@ -1,4 +1,5 @@
 class Clean < ApplicationRecord
+  validates :start_time, presence: true, if: -> {self.completed?}
   belongs_to :plot
 
   def hours_worked 
