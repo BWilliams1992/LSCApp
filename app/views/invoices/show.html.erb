@@ -26,7 +26,9 @@ Location: <%= @invoice.location.site_name %>
         <% elsif clean.clean_type == "Sparkle" %>
           <td><%= clean.clean_type %></td>
           <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).sparkle_cost %> </td>
-
+        <% elsif clean.clean_type == "Variation Order" %>
+          <td><%= clean.clean_type %></td>
+          <td>£<%= (@invoice.location.vo_cost * clean.hours_worked) * clean.num_people %> </td>
         <% end %>
     </tr>
   <% end %>

@@ -44,18 +44,19 @@
         </tr>
     <% end %>
     <tfoot>
-        <% if House.count > 0 %>
-            <td><%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %></td>
-        <% else %>
-            <td>No Houses in database would you like to  <%= link_to 'Create a House', new_house_path %></td>
-        <% end %>
+        <tr>
+            <% if House.count > 0 %>
+                <td colspan="5" ><%= link_to 'Add House to Site' , new_location_cost_house_location_path(@location) %></td>
+            <% else %>
+                <td colspan="5" >No Houses in database would you like to  <%= link_to 'Create a House', new_house_path %></td>
+            <% end %>
+        </tr>
+        
+        <tr>
+            <td colspan="5" >Variation Order Cost Per Person £<%=@location.vo_cost%><td>
+        </tr>
     </tfoot>
 </table>
-
-<h4>Extras</h4>
-<hr />
-<%= link_to 'New', new_extra_path() %>
-
 
 
 <div class="card">

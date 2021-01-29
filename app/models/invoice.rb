@@ -19,6 +19,8 @@ class Invoice < ApplicationRecord
             @total += @cost_house_location.pre_paint_cost
           elsif clean.clean_type == 'Post-Paint'
             @total += @cost_house_location.post_paint_cost
+          elsif clean.clean_type == 'Variation Order'
+            @total += (clean.location.vo_cost * clean.hours_worked) * clean.num_people
           end
         end
       end

@@ -1,6 +1,7 @@
 class Clean < ApplicationRecord
   validates :start_time, presence: true, if: -> {self.completed?}
   belongs_to :plot
+  belongs_to :location
 
   def hours_worked 
     if(self.start_time && self.end_time)

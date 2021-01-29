@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_185615) do
+ActiveRecord::Schema.define(version: 2021_01_29_192101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_01_29_185615) do
     t.bigint "clean_request_id"
     t.time "start_time"
     t.time "end_time"
+    t.integer "num_people"
     t.index ["clean_request_id"], name: "index_cleans_on_clean_request_id"
     t.index ["location_id"], name: "index_cleans_on_location_id"
     t.index ["plot_id"], name: "index_cleans_on_plot_id"
