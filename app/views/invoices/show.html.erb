@@ -8,6 +8,7 @@ Location: <%= @invoice.location.site_name %>
     <th scope="col">Plot No*</th>
     <th scope="col">Clean Type </th>
     <th scope="col">Cost </th>
+    <th scope="col">Extras </th>
   </thead>
   <% @cleans.each do |clean| %>
     <tr>
@@ -30,6 +31,7 @@ Location: <%= @invoice.location.site_name %>
           <td><%= clean.clean_type %></td>
           <td>£<%= (@invoice.location.vo_cost * clean.hours_worked) * clean.num_people %> </td>
         <% end %>
+        <td><%= clean.extras_total > 0 ? "£" + clean.extras_total.to_s : "N/A" %><td>
     </tr>
   <% end %>
 </table>

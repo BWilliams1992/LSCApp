@@ -1,7 +1,7 @@
 class Invoice < ApplicationRecord
   
   belongs_to :location
-
+  
   def completed_cost
     #Returns the total cost of completed cleans 
     @total = 0
@@ -22,6 +22,11 @@ class Invoice < ApplicationRecord
           elsif clean.clean_type == 'Variation Order'
             @total += (clean.location.vo_cost * clean.hours_worked) * clean.num_people
           end
+
+          clean.plot.plot_extras.each do |plot_extra|
+            @total += plot_extra.extra.cost
+          end
+
         end
       end
       return @total

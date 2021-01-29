@@ -3,6 +3,16 @@ class Clean < ApplicationRecord
   belongs_to :plot
   belongs_to :location
 
+  def extras_total
+    if self.plot.plot_extras
+      @total = 0
+      self.plot.plot_extras.each do |plot_extra|
+        @total += plot_extra.extra.cost
+      end
+      return @total
+    end
+  end
+
   def hours_worked 
     if(self.start_time && self.end_time)
       if (self.start_time < self.end_time)
