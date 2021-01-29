@@ -3,8 +3,11 @@
     <div>Date:<%= @clean.date %> </div>
     <div>Location: <%= Location.find(@clean.location_id).site_name  if @clean.location_id %> </div>
     <div>Plot:<%= Plot.find(@clean.plot_id).number if @clean.plot_id %> </div>
-    <div>House: </div>
+    <div>House: <%= House.find(@clean.plot.house_id).sales_name %> </div>
     <div>Type of Clean: <%= @clean.clean_type %> </div>
+    <div>Start Time: <%=@clean.start_time.strftime("%H:%M") if @clean.start_time %></div>
+    <div>End Time: <%=@clean.end_time.strftime("%H:%M") if @clean.end_time %></div>
+    <div>Hours Worked: <%= @clean.hours_worked %> </div>
     <div><%= link_to 'Edit', edit_clean_path(@clean) %></div>
     <div><%= link_to 'Delete clean', @clean, method:(:delete), data: { confirm: "Are you sure?"} %></div>
 </div>
