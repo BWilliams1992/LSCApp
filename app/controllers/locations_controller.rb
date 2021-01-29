@@ -52,6 +52,6 @@ class LocationsController < ApplicationController
         end
 
         def location_params
-            params.require(:location).permit(:site_name, :address1, :address2, :city, :county, :postcode, :user_id, :number_of_plots, :start_date, :layout)
+            params.require(:location).permit(:site_name, :address1, :address2, :city, :county, :postcode, :user_id, :number_of_plots, :start_date, :layout, :vo_cost)
         end
 end
