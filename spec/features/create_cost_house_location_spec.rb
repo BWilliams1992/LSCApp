@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-  describe 'creation' do
+  describe 'Creating a new link between a house and a sites price listing' do
 
     before do 
       @user1 = create(:user)
@@ -9,10 +9,11 @@ require 'rails_helper'
       login_as(@user1)
     end
 
-    it 'can be created from a new form' do
+    it 'can be created via new form' do
       visit new_location_cost_house_location_path(@location)
 
-      fill_in 'cost_house_location_build_cost', with: 200
+      fill_in 'cost_house_location_pre_paint_cost', with: 200
+      fill_in 'cost_house_location_post_paint_cost', with: 190
       fill_in 'cost_house_location_sparkle_cost', with: 190
       fill_in 'cost_house_location_demo_cost', with: 180
       select 'House', from: 'cost_house_location_house_id'

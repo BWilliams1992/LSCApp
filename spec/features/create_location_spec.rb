@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'navigate' do
+describe 'Create a new location via form' do
   let(:user) do
     User.create(
       email: 'foo@bar.net',
@@ -24,14 +24,14 @@ describe 'navigate' do
     }
   }
 
-describe 'index' do
+describe 'Visit location index page' do
   it 'can be reached' do
     visit locations_path
     expect(page.status_code).to eq(200)
   end
 end
 
-describe 'creation' do
+describe 'Visit new location page' do
   before do 
     login_as(user)
     visit new_location_path

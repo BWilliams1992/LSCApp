@@ -24,6 +24,12 @@ class InvoicesController < ApplicationController
     @cleans = Clean.where({ date: @invoice.start_date..@invoice.end_date, completed: true })
   end
 
+  def destroy 
+    @invoice.destroy
+    flash[:notice] = "Invoice Deleted"
+    redirect_to invoices_path
+  end
+
   private
 
     def set_invoice

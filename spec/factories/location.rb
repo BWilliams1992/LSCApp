@@ -9,5 +9,6 @@ FactoryBot.define do
     site_name {"Test Name"}
     number_of_plots {10}
     start_date {Date.today}
+    vo_cost { 20 }
   end
 end

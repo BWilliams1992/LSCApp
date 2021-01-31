@@ -1,22 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
-  let(:user) do
-    User.create(
-      email:"test@mail.com",
-      password: "password",
-      password_confirmation: "password"
-    )
+
+  before do 
+    @user = create(:user)
   end
 
   let(:valid_attributes){ 
     {:address1 => "Test1",
-    :city => "test city",
-    :postcode => "test postcode",
-    :site_name => "Test name",
-    :start_date => "01/01/2020",
-    :user_id => user.id,
-    :number_of_plots => 10}
+      :city => "test city",
+      :postcode => "test postcode",
+      :site_name => "Test name",
+      :start_date => "01/01/2020",
+      :user_id => @user.id,
+      :number_of_plots => 10,
+      :vo_cost => 20}
   }
 
   let(:location) do
@@ -27,7 +25,15 @@ RSpec.describe Location, type: :model do
     it 'can be created' do
       expect(location).to be_valid
       expect(Location.count).to eq(1)
-      expect(Location.first.user_id).to eq(user.id)
+      expect(Location.first.user_id).to eq(@user.id)
+    end
+    describe 'after creation' do
+      it 'creates plots' do
+        expect(location.plots.count).to eq(location.number_of_plots)
+      end
+      it 'creates invoices' do 
+        expect(location.invoices.count).to eq((Date.today.month - location.start_date.month) + 1 )
+      end
     end
   end
 

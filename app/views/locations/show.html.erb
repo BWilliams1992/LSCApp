@@ -1,4 +1,4 @@
-<div class="card mb-2", style= "background-image: url(<%= url_for(@location.layout) %>); background-size: 50%; background-repeat: no-repeat; background-position: center;">
+<div class="card mb-2", style= "background-image: url(<%= url_for(@location.layout) if @location.layout.attached? %>); background-size: 50%; background-repeat: no-repeat; background-position: center;">
   <div class="card-header">
     <h3><%= @location.site_name %></h3>
   </div>
