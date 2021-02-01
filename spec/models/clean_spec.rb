@@ -61,8 +61,10 @@ RSpec.describe Clean, :type => :model do
 
   describe 'hours_worked' do
     context 'start and end time supplied valid' do
-      it 'Calculates and returns the hours worked from start and end time of a clean' do
-        expect(clean.hours_worked).to eq(3)
+      context 'valid times supplied' do
+        it 'Calculates and returns the hours worked from start and end time of a clean' do
+          expect(clean.hours_worked).to eq(3)
+        end
       end
       context 'Start time after end time' do
         it 'Returns Start time after end time' do

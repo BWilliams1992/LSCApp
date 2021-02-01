@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Create a new location via form' do
+describe 'Create a new location via new location form' do
   let(:user) do
     User.create(
       email: 'foo@bar.net',
