@@ -1,26 +1,28 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Clean, :type => :model do
+RSpec.describe Clean, type: :model do
   before do
     @user = create(:user)
     @location = create(:location)
     @plot = @location.plots.first
     @extra = create(:extra)
-    @plot_extra = PlotExtra.create( { plot:@plot, extra: @extra} )
+    @plot_extra = PlotExtra.create({ plot: @plot, extra: @extra })
   end
 
-  let(:valid_attributes){
+  let(:valid_attributes) do
     {
       date: Date.parse('15/01/2021'),
       location: @location,
       plot: @plot,
-      start_time: Time.parse("09:00"),
+      start_time: Time.parse('09:00'),
       end_time: Time.parse('12:00'),
       completed: true,
-      clean_type: "Pre-Paint",
+      clean_type: 'Pre-Paint',
       num_people: 1
     }
-  }
+  end
 
   let(:clean) do
     Clean.create(valid_attributes)
@@ -37,13 +39,13 @@ RSpec.describe Clean, :type => :model do
         clean.start_time = nil
         clean.end_time = nil
       end
-      context 'is completed' do 
+      context 'is completed' do
         it 'is not valid' do
           expect(clean).to_not be_valid
         end
       end
       context 'is not completed' do
-        before do 
+        before do
           clean.completed = false
         end
         it 'is valid' do
@@ -68,8 +70,8 @@ RSpec.describe Clean, :type => :model do
       end
       context 'Start time after end time' do
         it 'Returns Start time after end time' do
-          clean.start_time = Time.parse("13:00")
-          expect(clean.hours_worked).to eq("Start time after end time")
+          clean.start_time = Time.parse('13:00')
+          expect(clean.hours_worked).to eq('Start time after end time')
         end
       end
     end
@@ -77,10 +79,8 @@ RSpec.describe Clean, :type => :model do
       it 'Returns "No start or end time"' do
         clean.start_time = nil
         clean.end_time = nil
-        expect(clean.hours_worked).to eq("No start or end time")
+        expect(clean.hours_worked).to eq('No start or end time')
       end
     end
-
   end
-
 end

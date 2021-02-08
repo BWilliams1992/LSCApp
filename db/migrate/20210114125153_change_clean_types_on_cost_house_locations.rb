@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeCleanTypesOnCostHouseLocations < ActiveRecord::Migration[6.0]
   def change
     add_column :cost_house_locations, :pre_paint_cost, :float

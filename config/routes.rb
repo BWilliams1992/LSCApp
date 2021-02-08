@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'plot_extras/index'
   get 'plot_extras/show'
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'dashboard#index'
   resources :clean_requests do
-    get "/convert" => 'cleans#convert', as: :convert
+    get '/convert' => 'cleans#convert', as: :convert
   end
   resources :cleans
   resources :locations do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hasmanythroughassocciationsupdate1 < ActiveRecord::Migration[6.0]
   def change
     add_reference :houses, :cost_house_locations, foreign_key: true

@@ -1,34 +1,38 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Invoice, type: :model do
-
   before do
     @user = create(:user)
     @location = create(:location)
     @house = create(:house)
-    @cost_house_location = CostHouseLocation.create( {
-      pre_paint_cost: 100,
-      post_paint_cost: 90,
-      demo_cost: 90,
-      sparkle_cost: 80,
-      location: @location,
-      house: @house
-    } )
+    @cost_house_location = CostHouseLocation.create({
+                                                      pre_paint_cost: 100,
+                                                      post_paint_cost: 90,
+                                                      demo_cost: 90,
+                                                      sparkle_cost: 80,
+                                                      location: @location,
+                                                      house: @house
+                                                    })
     @location.plots.each do |plot|
       plot.house_id = @house.id
       plot.save
     end
-    @clean1 = create(:clean, location_id:@location.id, plot_id: @location.plots.first.id, completed: true, clean_type: "Pre-Paint" )
-    @clean2 = create(:clean, location_id:@location.id, plot_id: @location.plots.second.id, completed: true, clean_type:"Sparkle" )
-    @clean3 = create(:clean, location_id:@location.id, plot_id: @location.plots.third.id, clean_type:"Demo" )
-    @clean4 = create(:clean, location_id:@location.id, plot_id: @location.plots.last.id, completed:true, clean_type:"Variation Order")
+    @clean1 = create(:clean, location_id: @location.id, plot_id: @location.plots.first.id, completed: true,
+                             clean_type: 'Pre-Paint')
+    @clean2 = create(:clean, location_id: @location.id, plot_id: @location.plots.second.id, completed: true,
+                             clean_type: 'Sparkle')
+    @clean3 = create(:clean, location_id: @location.id, plot_id: @location.plots.third.id, clean_type: 'Demo')
+    @clean4 = create(:clean, location_id: @location.id, plot_id: @location.plots.last.id, completed: true,
+                             clean_type: 'Variation Order')
   end
 
-  let(:valid_attributes){
-    {start_date: Date.parse("01/01/2021"),
-    end_date: Date.parse("31/01/2021"),
-    location: @location}
-  }
+  let(:valid_attributes) do
+    { start_date: Date.parse('01/01/2021'),
+      end_date: Date.parse('31/01/2021'),
+      location: @location }
+  end
 
   let(:invoice) do
     Invoice.create(valid_attributes)
@@ -49,10 +53,10 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
-  describe 'updating' do 
+  describe 'updating' do
     it 'can be updated' do
-      invoice.update({ end_date: Date.parse("30/01/21") })
-      expect(invoice.end_date).to eq(Date.parse("30/01/21"))
+      invoice.update({ end_date: Date.parse('30/01/21') })
+      expect(invoice.end_date).to eq(Date.parse('30/01/21'))
     end
   end
 
@@ -65,19 +69,17 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe 'total calculations' do
-
     it 'totals the cost of completed cleans associated with itself' do
       expect(invoice.completed_cost).to eq(240)
     end
 
-    it 'totals the cost of pending cleans associated with itself' do 
+    it 'totals the cost of pending cleans associated with itself' do
       expect(invoice.pending_cost).to eq(90)
     end
-    
+
     it 'totals the cost of all cleans associated with itself' do
       expect(invoice.total_cost).to eq(330)
     end
-
   end
 
   describe 'invoice_cleans' do
@@ -85,5 +87,4 @@ RSpec.describe Invoice, type: :model do
       expect(invoice.invoice_cleans.count).to eq(4)
     end
   end
-
 end

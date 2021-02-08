@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class CostHouseLocationsController < ApplicationController
-  before_action :set_cost_house_location, only:[:show,:edit,:update, :destroy]
-  before_action :set_location, only:[:show, :new, :create, :edit, :update, :destroy]
+  before_action :set_cost_house_location, only: %i[show edit update destroy]
+  before_action :set_location, only: %i[show new create edit update destroy]
   load_and_authorize_resource
   def new
     @cost_house_location = CostHouseLocation.new
   end
 
-  def create 
+  def create
     @cost_house_location = CostHouseLocation.new(cost_house_location_params)
     if @cost_house_location.save!
       redirect_to @cost_house_location.location
@@ -15,15 +17,13 @@ class CostHouseLocationsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def index 
+  def index
     @cost_house_locations = CostHouseLocation.all
   end
 
-  def edit 
-  end
+  def edit; end
 
   def update
     if @cost_house_location.update(cost_house_location_params)
@@ -38,20 +38,18 @@ class CostHouseLocationsController < ApplicationController
     redirect_to location_path(@location)
   end
 
-
-
   private
 
-    def cost_house_location_params 
-      params.require(:cost_house_location).permit(:pre_paint_cost, :post_paint_cost, :demo_cost, :sparkle_cost, :house_id, :location_id)
-    end
+  def cost_house_location_params
+    params.require(:cost_house_location).permit(:pre_paint_cost, :post_paint_cost, :demo_cost, :sparkle_cost,
+                                                :house_id, :location_id)
+  end
 
-    def set_cost_house_location
-      @cost_house_location = CostHouseLocation.find(params[:id])
-    end
+  def set_cost_house_location
+    @cost_house_location = CostHouseLocation.find(params[:id])
+  end
 
-    def set_location
-      @location = Location.find(params[:location_id])
-    end
-
+  def set_location
+    @location = Location.find(params[:location_id])
+  end
 end

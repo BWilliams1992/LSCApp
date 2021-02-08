@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe House, Type: :model do
-
-  let(:valid_attributes){ 
-    {:sales_name => "Cologne",
-    :build_number => "00001111"}
-  }
+  let(:valid_attributes) do
+    { sales_name: 'Cologne',
+      build_number: '00001111' }
+  end
 
   let(:house) do
     House.create(valid_attributes)
@@ -23,5 +24,4 @@ RSpec.describe House, Type: :model do
       expect(House.count).to eq(0)
     end
   end
-
 end

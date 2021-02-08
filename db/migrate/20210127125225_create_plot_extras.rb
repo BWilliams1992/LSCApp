@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePlotExtras < ActiveRecord::Migration[6.0]
   def change
     create_table :plot_extras do |t|
