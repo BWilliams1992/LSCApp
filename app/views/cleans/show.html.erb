@@ -1,14 +1,32 @@
-<div class="jumbotron">
-  <h1 class="display-4">Clean</h1>
-    <div>Date:<%= @clean.date %> </div>
-    <div>Location: <%= Location.find(@clean.location_id).site_name  if @clean.location_id %> </div>
-    <div>Plot:<%= Plot.find(@clean.plot_id).number if @clean.plot_id %> </div>
-    <div>House: <%= House.find(@clean.plot.house_id).sales_name %> </div>
-    <div>Type of Clean: <%= @clean.clean_type %> </div>
-    <div>Start Time: <%=@clean.start_time.strftime("%H:%M") if @clean.start_time %></div>
-    <div>End Time: <%=@clean.end_time.strftime("%H:%M") if @clean.end_time %></div>
-    <div>Hours Worked: <%= @clean.hours_worked %> </div>
-    <div>Number of People: <%=@clean.num_people if @clean.num_people %>
-    <div><%= link_to 'Edit', edit_clean_path(@clean) %></div>
-    <div><%= link_to 'Delete clean', @clean, method:(:delete), data: { confirm: "Are you sure?"} %></div>
+<div class="card">
+  <div class="card-header bg-primary"> 
+    <h1>Clean job number: <%= @clean.id %></h1>
+  </div>
+  <div class="card-body">
+      <h3>Date: <%= @clean.date %></h3>
+      <h3><%= Location.find(@clean.location_id).site_name  if @clean.location_id %> plot <%= Plot.find(@clean.plot_id).number if @clean.plot_id %> </h3>
+      <div class="container d-flex">
+        <h4 class="col-2">Address:</h4>
+        <ul class="list-group col-10">
+          <li class="list-group-item"><%= @clean.location.address1%> </li>
+          <li class="list-group-item"><%= @clean.location.address2%> </li>
+          <li class="list-group-item"><%= @clean.location.city%> </li>
+          <li class="list-group-item"><%= @clean.location.postcode%> </li>
+
+        </ul>
+      </div>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item mx-auto">House type: <%= House.find(@clean.plot.house_id).sales_name %> </li>
+    <li class="list-group-item mx-auto">Type of Clean: <%= @clean.clean_type %> </li>
+    <li class="list-group-item mx-auto">Start Time: <%=@clean.start_time.strftime("%H:%M") if @clean.start_time %>, End Time: <%=@clean.end_time.strftime("%H:%M") if @clean.end_time %></li>
+    <li class="list-group-item mx-auto">Hours Worked: <%= @clean.hours_worked %> </li>
+    <li class="list-group-item mx-auto">Number of People: <%=@clean.num_people if @clean.num_people %>
+  </ul>
+
+  <div class="card-footer d-flex justify-content-around">
+   <%= link_to 'Edit', edit_clean_path(@clean), class:"btn btn-warning" %> <%= link_to 'Delete clean', @clean, method:(:delete), data: { confirm: "Are you sure?"}, class:"btn btn-danger" %>
+  </div>
+
 </div>

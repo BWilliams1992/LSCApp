@@ -3,6 +3,7 @@
 class Clean < ApplicationRecord
   validates :start_time, presence: true, if: -> { completed? }
   validates :end_time, presence: true, if: -> { completed? }
+  validates :end_time, numericality: { greater_than: :start_time, message: "must be after Start time" }
   belongs_to :plot
   belongs_to :location
 
