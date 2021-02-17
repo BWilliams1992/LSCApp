@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+require "google/apis/Calendar_v3"
+require 'google/api_client/client_secrets'
 
 class CleansController < ApplicationController
+  CALENDAR_ID = 'primary'
   before_action :set_clean, only: %i[show edit update destroy]
   load_and_authorize_resource
-  require "google/apis/Calendar_v3"
-  require 'google/api_client/client_secrets'
 
   def new
     @clean = Clean.new
@@ -12,34 +13,47 @@ class CleansController < ApplicationController
 
   def create
     @clean = Clean.new(clean_params)
-
-    calendar = Google::Apis::CalendarV3::CalendarService.new
-
-    
-
-    calendar.authorization = session["auth_client"]
-    byebug
-    event = Google::Apis::CalendarV3::Event.new(
-      location: @clean.stringify_address,
-      description: @clean.clean_type,
-      start: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: @clean.date,
-        time_zone: 'GMT/London'
-      ),
-      end: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: @clean.date,
-        time_zone: 'GMT/London'
-      )
-    )
-    byebug
-    calendar.insert_event('primary', event)
-
     if @clean.save!
+      client = get_google_calendar_client current_user
+      clean = @clean
+      event = get_event clean
+      client.insert_event(current_user.email, event)
       flash[:notice] = 'Clean was succesfully created!'
-      # redirect_to @clean
+      redirect_to @clean
     else
       render 'new'
     end
+
+  end
+
+  def get_google_calendar_client current_user
+    client = Google::Apis::CalendarV3::CalendarService.new
+    return unless (current_user.present? && current_user.access_token.present? && current_user.refresh_token.present?)
+    secrets = Google::APIClient::ClientSecrets.new({
+      "web" => {
+        "access_token" => current_user.access_token,
+        "refresh_token" => current_user.refresh_token,
+        "client_id" => ENV["GOOGLE_API_KEY"],
+        "client_secret" => ENV["GOOGLE_API_SECRET"]
+      }
+    })
+    begin
+      client.authorization = secrets.to_authorization
+      client.authorization.grant_type = "refresh_token"
+
+      if !current_user.present?
+        client.authorization.refresh!
+        current_user.update_attributes(
+          access_token: client.authorization.access_token,
+          refresh_token: client.authorization.refresh_token,
+          expires_at: client.authorization.expires_at.to_i
+        )
+      end
+    rescue => e
+      flash[:error] = 'Your token has been expired. Please login again with google.'
+      redirect_to :back
+    end
+    client
   end
 
   def show; end
@@ -75,4 +89,20 @@ class CleansController < ApplicationController
     params.require(:clean).permit(:date, :location_id, :plot_id, :completed, :clean_type, :clean_request,
                                   :start_time, :end_time, :num_people)
   end
+
+  def get_event clean
+    event = Google::Apis::CalendarV3::Event.new({
+      summary: clean[:clean_type],
+      location: clean.stringify_address,
+      start: {
+        date_time: "2021/02/28",
+        time_zone: "Europe/London"
+      },
+      end: {
+        date_time: "2021/02/28",
+        time_zone: "Europe/London"
+      },
+    })
+  end
+
 end

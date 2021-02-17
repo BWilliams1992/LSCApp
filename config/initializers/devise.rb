@@ -49,14 +49,14 @@ Devise.setup do |config|
   # config.authentication_keys = [:email]
 
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'],   {
-    scope: 'userinfo.email, userinfo.profile, https://www.googleapis.com/auth/calendar',
-    prompt: 'select_account',
-    image_aspect_ratio: 'square',
-    image_size: 50,
-    :additional_parameters => {
-      "access_type" => "offline",         # offline access
-      "include_granted_scopes" => "true"  # incremental auth
-    }
+    scope: 'userinfo.email, https://www.googleapis.com/auth/calendar',
+
+    access_type: "offline",
+
+  prompt: "consent",
+
+  select_account: true,
+
   }
 
   # Configure parameters from the request object used for authentication. Each entry
