@@ -3,6 +3,8 @@
 class CleansController < ApplicationController
   before_action :set_clean, only: %i[show edit update destroy]
   load_and_authorize_resource
+  require "google/apis/Calendar_v3"
+  require 'google/api_client/client_secrets'
 
   def new
     @clean = Clean.new
@@ -10,9 +12,31 @@ class CleansController < ApplicationController
 
   def create
     @clean = Clean.new(clean_params)
+
+    calendar = Google::Apis::CalendarV3::CalendarService.new
+
+    
+
+    calendar.authorization = session["auth_client"]
+    byebug
+    event = Google::Apis::CalendarV3::Event.new(
+      location: @clean.stringify_address,
+      description: @clean.clean_type,
+      start: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: @clean.date,
+        time_zone: 'GMT/London'
+      ),
+      end: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: @clean.date,
+        time_zone: 'GMT/London'
+      )
+    )
+    byebug
+    calendar.insert_event('primary', event)
+
     if @clean.save!
       flash[:notice] = 'Clean was succesfully created!'
-      redirect_to @clean
+      # redirect_to @clean
     else
       render 'new'
     end

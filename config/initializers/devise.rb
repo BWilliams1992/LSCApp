@@ -48,7 +48,16 @@ Devise.setup do |config|
   # or not authentication should be aborted when the value is not present.
   # config.authentication_keys = [:email]
 
-  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {}
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'],   {
+    scope: 'userinfo.email, userinfo.profile, https://www.googleapis.com/auth/calendar',
+    prompt: 'select_account',
+    image_aspect_ratio: 'square',
+    image_size: 50,
+    :additional_parameters => {
+      "access_type" => "offline",         # offline access
+      "include_granted_scopes" => "true"  # incremental auth
+    }
+  }
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
