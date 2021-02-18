@@ -92,13 +92,21 @@ class CleansController < ApplicationController
   end
 
   def get_event clean
+    if clean.start_time 
+      start_date_time = clean.date.to_time + (clean.start_time.hour * 60 * 60)
+    end
+
+    if clean.end_time
+      end_date_time = clean.date.to_time + (clean.end_time.hour * 60 * 60)
+    end
+    
     event = Google::Apis::CalendarV3::Event.new({
       start: {
-        date_time: clean.date.rfc3339,
+        date_time: clean.start_time ? start_date_time.rfc3339 : clean.date.rfc3339,
         time_zone: "Europe/London"
       },
       end: {
-        date_time: clean.date.rfc3339,
+        date_time: clean.end_time ? end_date_time.rfc3339 : clean.date.rfc3339,
         time_zone: "Europe/London"
       },
       summary: clean.clean_type,
