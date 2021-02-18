@@ -17,7 +17,8 @@ class CleansController < ApplicationController
       client = get_google_calendar_client current_user
       clean = @clean
       event = get_event clean
-      client.insert_event(current_user.email, event)
+      client.key = ENV['GOOGLE_API_KEY']
+      client.insert_event('primary', event)
       flash[:notice] = 'Clean was succesfully created!'
       redirect_to @clean
     else
@@ -34,13 +35,13 @@ class CleansController < ApplicationController
         "access_token" => current_user.access_token,
         "refresh_token" => current_user.refresh_token,
         "client_id" => ENV["GOOGLE_API_KEY"],
-        "client_secret" => ENV["GOOGLE_API_SECRET"]
+        "client_secret" => ENV["GOOGLE_CLIENT_SECRET"]
       }
     })
+
     begin
       client.authorization = secrets.to_authorization
       client.authorization.grant_type = "refresh_token"
-
       if !current_user.present?
         client.authorization.refresh!
         current_user.update_attributes(
@@ -92,16 +93,17 @@ class CleansController < ApplicationController
 
   def get_event clean
     event = Google::Apis::CalendarV3::Event.new({
-      summary: clean[:clean_type],
-      location: clean.stringify_address,
       start: {
-        date_time: "2021/02/28",
+        date_time: clean.date.rfc3339,
         time_zone: "Europe/London"
       },
       end: {
-        date_time: "2021/02/28",
+        date_time: clean.date.rfc3339,
         time_zone: "Europe/London"
       },
+      summary: clean.clean_type,
+      location: clean.stringify_address,
+      description: clean.clean_type + ' at ' + clean.location.site_name + ' Plot ' + clean.plot.number.to_s
     })
   end
 
