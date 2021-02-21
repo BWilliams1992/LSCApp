@@ -37,7 +37,7 @@ gem 'omniauth-google-oauth2'
 
 gem 'aws-sdk-s3'
 
-gem 'google-api-client'
+gem 'google-api-client', require: ['google/apis/calendar_v3']
 
 gem 'redis'
 

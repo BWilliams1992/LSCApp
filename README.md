@@ -5,9 +5,11 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* # Ruby version
+    * Version 2.6.6
 
-* System dependencies
+* # System dependencies
+ * Yarn
 
 * Configuration
 
@@ -22,3 +24,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Description
+* This app automatically generates invoices from jobs that can be created. This version is specifically for a cleaning business. The app is used to manage different building sites and the cleans and invoices associated with them 
+* The price of each clean is set per site, per house and per clean type. 
