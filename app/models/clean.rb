@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Clean < ApplicationRecord
+
   validates :start_time, presence: true, if: -> { completed? }
   validates :end_time, presence: true, if: -> { completed? }
-  validates :end_time, numericality: { greater_than: :start_time, message: "must be after Start time" }
   belongs_to :plot
   belongs_to :location
 
@@ -20,14 +20,13 @@ class Clean < ApplicationRecord
 
   def hours_worked
     # Calculates the hours worked from start and end time of a clean
-    if start_time && end_time
-      if start_time < end_time
-        (end_time - start_time) / 3600
-      else
-        'Start time after end time'
-      end
-    else
-      'No start or end time'
-    end
+    raise "Start & end time must be specified" unless start_time && end_time
+    raise "Start time must be before end time" if start_time > end_time
+    (end_time - start_time) / 3600
   end
+
+  def stringify_address
+    return location.address1 + ' ' + location.address2 + ' ' + location.city + ' ' + location.postcode
+  end
+
 end

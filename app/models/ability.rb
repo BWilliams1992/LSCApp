@@ -37,5 +37,13 @@ class Ability
       can :manage, CleanRequest, user_id: user.id
       can :manage, User, id: user.id
     end
+
+    if user.staff?
+      can :manage, Clean
+      can :view, Location
+      can :view, Invoice
+      can :view, House
+      can :view, Extra
+    end
   end
 end

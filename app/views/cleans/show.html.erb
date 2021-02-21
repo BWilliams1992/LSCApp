@@ -21,7 +21,7 @@
     <li class="list-group-item mx-auto">House type: <%= House.find(@clean.plot.house_id).sales_name %> </li>
     <li class="list-group-item mx-auto">Type of Clean: <%= @clean.clean_type %> </li>
     <li class="list-group-item mx-auto">Start Time: <%=@clean.start_time.strftime("%H:%M") if @clean.start_time %>, End Time: <%=@clean.end_time.strftime("%H:%M") if @clean.end_time %></li>
-    <li class="list-group-item mx-auto">Hours Worked: <%= @clean.hours_worked %> </li>
+    <li class="list-group-item mx-auto">Hours Worked: <%= @clean.hours_worked if @clean.start_time && @clean.end_time %> </li>
     <li class="list-group-item mx-auto">Number of People: <%=@clean.num_people if @clean.num_people %>
   </ul>
 

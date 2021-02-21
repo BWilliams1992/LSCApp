@@ -28,29 +28,32 @@ RSpec.describe Clean, type: :model do
     Clean.create(valid_attributes)
   end
 
-  describe 'is valid' do
+  describe 'a valid clean' do
     context 'with valid attributes' do
       it 'is valid' do
         expect(clean).to be_valid
       end
     end
+  end
+
+  describe 'an invalid clean' do
+    context 'start time after end time' do
+      before do 
+        clean.start_time = Time.parse("18:00")
+      end
+      it 'is not valid' do
+        expect(clean).to_not be_valid
+      end
+    end
+
     context 'without start or end times' do
       before do
         clean.start_time = nil
         clean.end_time = nil
       end
-      context 'is completed' do
-        it 'is not valid' do
-          expect(clean).to_not be_valid
-        end
-      end
-      context 'is not completed' do
-        before do
-          clean.completed = false
-        end
-        it 'is valid' do
-          expect(clean).to be_valid
-        end
+
+      it 'is not valid' do
+        expect(clean).to_not be_valid
       end
     end
   end
@@ -62,24 +65,24 @@ RSpec.describe Clean, type: :model do
   end
 
   describe 'hours_worked' do
-    context 'start and end time supplied valid' do
+    context 'start and end time supplied' do
       context 'valid times supplied' do
         it 'Calculates and returns the hours worked from start and end time of a clean' do
           expect(clean.hours_worked).to eq(3)
         end
       end
       context 'Start time after end time' do
-        it 'Returns Start time after end time' do
+        it 'raises exeption' do
           clean.start_time = Time.parse('13:00')
-          expect(clean.hours_worked).to eq('Start time after end time')
+          expect { clean.hours_worked }.to raise_error(RuntimeError,"Start time must be before end time")
         end
       end
     end
     context 'No start or end time supplied' do
-      it 'Returns "No start or end time"' do
+      it 'raises exeption' do
         clean.start_time = nil
         clean.end_time = nil
-        expect(clean.hours_worked).to eq('No start or end time')
+        expect { clean.hours_worked }.to raise_error(RuntimeError,"Start & end time must be specified")
       end
     end
   end
