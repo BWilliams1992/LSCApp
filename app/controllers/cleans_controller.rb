@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "google/apis/Calendar_v3"
+require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 
 class CleansController < ApplicationController
