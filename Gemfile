@@ -37,9 +37,7 @@ gem 'omniauth-google-oauth2'
 
 gem 'aws-sdk-s3'
 
-gem 'google-api-client', require: ['google/apis/calendar_v3']
-
-gem 'redis'
+gem 'google-api-client', '>= 0.53.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
