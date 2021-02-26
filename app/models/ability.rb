@@ -13,9 +13,8 @@ class Ability
         can :view, Invoice
         can :view, House
         can :view, Extra
-        if user.admin?
-          can :manage, :all
-        end
+      elsif user.admin?
+        can :manage, :all
       end
     end
   end

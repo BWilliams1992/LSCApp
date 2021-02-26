@@ -15,23 +15,9 @@ Location: <%= @invoice.location.site_name %>
       <td><%= link_to clean.id, clean_path(clean) %> </td>
       <td><%= clean.date.strftime("%d/%m/%Y")%> </td>
       <td><%= Plot.find(clean.plot_id).number %> </td>
-        <% if clean.clean_type == "Pre-Paint" %>
-          <td><%= clean.clean_type %></td>
-          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).pre_paint_cost %> </td>
-        <% elsif clean.clean_type == "Post-Paint" %>
-          <td><%= clean.clean_type %></td>
-          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).post_paint_cost %> </td>
-        <% elsif clean.clean_type == "Demo" %>
-          <td><%= clean.clean_type %></td>
-          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).demo_cost %> </td>
-        <% elsif clean.clean_type == "Sparkle" %>
-          <td><%= clean.clean_type %></td>
-          <td>£<%= @invoice.location.cost_house_locations.find_by({house_id: Plot.find(clean.plot_id).house_id}).sparkle_cost %> </td>
-        <% elsif clean.clean_type == "Variation Order" %>
-          <td><%= clean.clean_type %></td>
-          <td>£<%= (@invoice.location.vo_cost * clean.hours_worked) * clean.num_people %> </td>
-        <% end %>
-        <td><%= clean.extras_total > 0 ? "£" + clean.extras_total.to_s : "N/A" %><td>
+      <td><%= clean.clean_type %></td>
+      <td>£<%= clean.clean_cost %></td>
+      <td><%= clean.extras_total > 0 ? "£" + clean.extras_total.to_s : "N/A" %><td>
     </tr>
   <% end %>
 </table>

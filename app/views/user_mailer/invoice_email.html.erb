@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <h1>L.S Cleaning Services Ltd. </h1>
+  <p>Address: 7 Doncaster Road
+            Hooton Roberts
+            Rotherham
+            S65 4PF </p>
+    <p>Tel: 07716221065 </p>
+<p>Company no:10994753 </p>
+<p>Location: <%= @invoice.location.site_name %> </p>
+<table class='table table-striped table-hover'>
+  <thead>
+    <th scope="col">Plot No*</th>
+    <th scope="col">Date</th>
+    <th scope="col">Clean Type </th>
+    <th scope="col">Price </th>
+    <th scope="col">Extras </th>
+  </thead>
+  <% @invoice.invoice_cleans.each do |clean| %>
+    <tr>
+        <td><%= Plot.find(clean.plot_id).number %> </td>
+        <td><%= clean.date.strftime("%d/%m/%Y")%> </td>
+          <td><%= clean.clean_type %></td>
+          <td>£<%= clean.clean_cost %> </td>
+        <td><%= clean.extras_total > 0 ? "£" + clean.extras_total.to_s : "N/A" %><td>
+    </tr>
+  <% end %>
+</table>
+
+Total Cost: £<%= @invoice.completed_cost%> <br />
+
+Number of cleans: <%= @invoice.invoice_cleans.count %>
+
+
+  </body>
+</html>
