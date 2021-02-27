@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 
@@ -24,25 +25,25 @@ class CleansController < ApplicationController
     else
       render 'new'
     end
-
   end
 
-  def get_google_calendar_client current_user
+  def get_google_calendar_client(current_user)
     client = Google::Apis::CalendarV3::CalendarService.new
-    return unless (current_user.present? && current_user.access_token.present? && current_user.refresh_token.present?)
+    return unless current_user.present? && current_user.access_token.present? && current_user.refresh_token.present?
+
     secrets = Google::APIClient::ClientSecrets.new({
-      "web" => {
-        "access_token" => current_user.access_token,
-        "refresh_token" => current_user.refresh_token,
-        "client_id" => ENV["GOOGLE_API_KEY"],
-        "client_secret" => ENV["GOOGLE_CLIENT_SECRET"]
-      }
-    })
+                                                     'web' => {
+                                                       'access_token' => current_user.access_token,
+                                                       'refresh_token' => current_user.refresh_token,
+                                                       'client_id' => ENV['GOOGLE_API_KEY'],
+                                                       'client_secret' => ENV['GOOGLE_CLIENT_SECRET']
+                                                     }
+                                                   })
 
     begin
       client.authorization = secrets.to_authorization
-      client.authorization.grant_type = "refresh_token"
-      if !current_user.present?
+      client.authorization.grant_type = 'refresh_token'
+      unless current_user.present?
         client.authorization.refresh!
         current_user.update_attributes(
           access_token: client.authorization.access_token,
@@ -50,7 +51,7 @@ class CleansController < ApplicationController
           expires_at: client.authorization.expires_at.to_i
         )
       end
-    rescue => e
+    rescue StandardError => e
       flash[:error] = 'Your token has been expired. Please login again with google.'
       redirect_to :back
     end
@@ -91,28 +92,23 @@ class CleansController < ApplicationController
                                   :start_time, :end_time, :num_people)
   end
 
-  def get_event clean
-    if clean.start_time 
-      start_date_time = clean.date.to_time + (clean.start_time.hour * 60 * 60)
-    end
+  def get_event(clean)
+    start_date_time = clean.date.to_time + (clean.start_time.hour * 60 * 60) if clean.start_time
 
-    if clean.end_time
-      end_date_time = clean.date.to_time + (clean.end_time.hour * 60 * 60)
-    end
-    
+    end_date_time = clean.date.to_time + (clean.end_time.hour * 60 * 60) if clean.end_time
+
     event = Google::Apis::CalendarV3::Event.new({
-      start: {
-        date_time: clean.start_time ? start_date_time.rfc3339 : clean.date.rfc3339,
-        time_zone: "Europe/London"
-      },
-      end: {
-        date_time: clean.end_time ? end_date_time.rfc3339 : clean.date.rfc3339,
-        time_zone: "Europe/London"
-      },
-      summary: clean.clean_type,
-      location: clean.stringify_address,
-      description: clean.clean_type + ' at ' + clean.location.site_name + ' Plot ' + clean.plot.number.to_s
-    })
+                                                  start: {
+                                                    date_time: clean.start_time ? start_date_time.rfc3339 : clean.date.rfc3339,
+                                                    time_zone: 'Europe/London'
+                                                  },
+                                                  end: {
+                                                    date_time: clean.end_time ? end_date_time.rfc3339 : clean.date.rfc3339,
+                                                    time_zone: 'Europe/London'
+                                                  },
+                                                  summary: clean.clean_type,
+                                                  location: clean.stringify_address,
+                                                  description: clean.clean_type + ' at ' + clean.location.site_name + ' Plot ' + clean.plot.number.to_s
+                                                })
   end
-
 end

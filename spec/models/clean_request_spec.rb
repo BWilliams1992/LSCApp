@@ -1,26 +1,26 @@
 require 'rails_helper'
 
-RSpec.describe CleanRequest, type: :model do 
-  before do 
+RSpec.describe CleanRequest, type: :model do
+  before do
     @user = create(:user)
     @location = create(:location)
-    @clean_request = create(:clean_request, location: @location, date: Date.today + 2, user:@user )
+    @clean_request = create(:clean_request, location: @location, date: Date.today + 2, user: @user)
   end
 
   describe 'A Clean Request' do
     context 'with valid attributes' do
       it 'is valid' do
-         expect(@clean_request).to be_valid
+        expect(@clean_request).to be_valid
       end
     end
-    
+
     context 'with invalid attributes' do
       context 'date is not at least a day in advance' do
-        before do 
+        before do
           @clean_request.date = Date.today
         end
-        it 'is not valid' do 
-           expect(@clean_request).to_not be_valid
+        it 'is not valid' do
+          expect(@clean_request).to_not be_valid
         end
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe CleanRequest, type: :model do
         end
       end
       context 'approved attribute has changed' do
-        before do 
+        before do
           @clean_request.approved = true
         end
         context 'is true' do
@@ -55,8 +55,8 @@ RSpec.describe CleanRequest, type: :model do
             expect(ActionMailer::Base.deliveries.count).to eq(1)
           end
         end
-        context 'is false' do 
-          before do 
+        context 'is false' do
+          before do
             @clean_request.approved = false
           end
           it 'does not deliver an email notification' do
@@ -67,18 +67,18 @@ RSpec.describe CleanRequest, type: :model do
       end
     end
 
-    context 'date_24_hours_in_advance' do 
+    context 'date_24_hours_in_advance' do
       context 'date is at least a day in advance' do
         it 'returns nil' do
           expect(@clean_request.date_24_hours_in_advance).to eq(nil)
         end
       end
       context 'date is same day' do
-        before do 
-          @clean_request.date = Date.today()
+        before do
+          @clean_request.date = Date.today
         end
         it 'returns an error' do
-          expect(@clean_request.date_24_hours_in_advance).to eq(["Date must be at least a day in advance"])
+          expect(@clean_request.date_24_hours_in_advance).to eq(['Date must be at least a day in advance'])
         end
       end
     end

@@ -48,14 +48,14 @@ Devise.setup do |config|
   # or not authentication should be aborted when the value is not present.
   # config.authentication_keys = [:email]
 
-  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'],   {
+  config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
     scope: 'userinfo.email, https://www.googleapis.com/auth/calendar,https://www.googleapis.com/auth/calendar.events',
 
-    access_type: "offline",
+    access_type: 'offline',
 
-  prompt: "consent",
+    prompt: 'consent',
 
-  select_account: true,
+    select_account: true
 
   }
 

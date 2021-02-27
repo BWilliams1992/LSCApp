@@ -3,13 +3,9 @@
 require 'rails_helper'
 
 describe 'Create a new location via new location form' do
-  let(:user) do
-    User.create(
-      email: 'foo@bar.net',
-      password: 'chicken',
-      password_confirmation: 'chicken',
-      admin: true
-    )
+  before do
+    user = create(:user)
+    login_as(user)
   end
 
   let(:valid_attributes) do
@@ -35,7 +31,6 @@ describe 'Create a new location via new location form' do
 
   describe 'Visit new location page' do
     before do
-      login_as(user)
       visit new_location_path
     end
 

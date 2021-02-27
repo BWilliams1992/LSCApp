@@ -6,7 +6,7 @@ FactoryBot.define do
     approved { false }
     clean_type { 'Build' }
     location_id {}
-    plot_number {'1'}
+    plot_number { '1' }
     notes {}
     user_id {}
   end

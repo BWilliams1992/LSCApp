@@ -17,8 +17,8 @@ class UserMailer < ApplicationMailer
   end
 
   def invoice_email
-    @user = params[:user] 
+    @user = params[:user]
     @invoice = params[:invoice]
-    mail(to: @user.email, subject: 'Invoice ' + @invoice.start_date.strftime("%d/%^b/%Y"))
+    mail(to: @user.email, subject: 'Invoice ' + @invoice.start_date.strftime('%d/%^b/%Y'))
   end
 end

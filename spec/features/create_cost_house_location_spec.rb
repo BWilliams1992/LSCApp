@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'Creating a new link between a house and a sites price listing' do
   before do
-    @user1 = create(:user, id: 1, admin:true)
+    @user1 = create(:user, id: 1, admin: true)
     @location = create(:location)
     @house = create(:house)
     login_as(@user1)
