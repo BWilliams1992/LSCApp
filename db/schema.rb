@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_174303) do
+ActiveRecord::Schema.define(version: 2021_02_27_162142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,10 +42,10 @@ ActiveRecord::Schema.define(version: 2021_02_18_174303) do
     t.bigint "user_id", null: false
     t.string "clean_type"
     t.text "notes"
-    t.boolean "approved"
     t.date "date"
     t.bigint "location_id"
     t.string "plot_number"
+    t.boolean "approved", default: false
     t.index ["location_id"], name: "index_clean_requests_on_location_id"
     t.index ["user_id"], name: "index_clean_requests_on_user_id"
   end

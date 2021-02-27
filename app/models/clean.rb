@@ -43,10 +43,12 @@ class Clean < ApplicationRecord
   end
 
   def stringify_address
+    # Returns a string containing the locations address 
     return location.address1 + ' ' + location.address2 + ' ' + location.city + ' ' + location.postcode
   end
 
   def start_time_validation
+    # Validates that start time is before end time if both are present
     if self.start_time && self.end_time 
       if self.start_time > self.end_time 
         errors.add :base, 'Start time is after end time'
