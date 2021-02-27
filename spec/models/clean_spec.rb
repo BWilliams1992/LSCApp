@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Clean, type: :model do
   before do
-    @user = create(:user)
+    @user = create(:user, id: 1, admin:true)
     @location = create(:location)
     @plot = @location.plots.first
     @house = create(:house)

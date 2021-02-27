@@ -2,6 +2,7 @@
 
 class ExtrasController < ApplicationController
   before_action :set_extra, only: %i[show edit update destroy]
+  load_and_authorize_resource
   def new
     @extra = Extra.new
   end

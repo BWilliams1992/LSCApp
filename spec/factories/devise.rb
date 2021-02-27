@@ -2,9 +2,10 @@
 
 FactoryBot.define do
   factory :user do
-    id { 1 }
+    id {  }
     email { 'test@user.com' }
     password { 'qwerty' }
-    admin { true }
+    admin { false }
+    staff { false }
   end
 end

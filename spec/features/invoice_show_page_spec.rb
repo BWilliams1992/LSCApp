@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'Viewing an invoice show page' do
   before do
-    @user = create(:user)
+    @user = create(:user, id: 1, admin:true)
     @location = create(:location)
     @house = create(:house)
     @plot = @location.plots.first
