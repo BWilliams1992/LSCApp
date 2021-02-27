@@ -301,7 +301,6 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.5)
     regexp_parser (1.8.2)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -406,7 +405,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_bot_rails
-  google-api-client
+  google-api-client (>= 0.53.0)
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.2)
@@ -415,7 +414,6 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
-  redis
   rspec-core!
   rspec-expectations!
   rspec-mocks!

@@ -4,6 +4,7 @@ class Clean < ApplicationRecord
 
   validates :start_time, presence: true, if: -> { completed? }
   validates :end_time, presence: true, if: -> { completed? }
+  validate :start_time_validation
   belongs_to :plot
   belongs_to :location
 
@@ -43,6 +44,14 @@ class Clean < ApplicationRecord
 
   def stringify_address
     return location.address1 + ' ' + location.address2 + ' ' + location.city + ' ' + location.postcode
+  end
+
+  def start_time_validation
+    if self.start_time && self.end_time 
+      if self.start_time > self.end_time 
+        errors.add :base, 'Start time is after end time'
+      end
+    end
   end
 
 end

@@ -1,4 +1,4 @@
-desc "Create"
+desc "Checks to see if its new invoice day, if it is sends the last invoice and creates a new one"
 
 task :make_invoices => [:environment] do
     Location.all.each do |location|
@@ -7,6 +7,7 @@ task :make_invoices => [:environment] do
         today = Date.today()
         if today.day == location.start_date.day
             puts "TODAY!"
+            UserMailer.with(user: @invoice.location.user, invoice: location.invoices.last).invoice_email.deliver_now
             invoice = location.invoices.build(start_date:today, end_date:(today >> 1))
             if invoice.save
                 puts "Invoice created"
@@ -18,11 +19,4 @@ task :make_invoices => [:environment] do
         end
     end
 
-end
-
-desc "Sends email copy of invoice"
-task :send_invoice => [:environment] do
-    @invoice = Invoice.first
-    puts @invoice.invoice_cleans
-    UserMailer.with(user: @invoice.location.user, invoice: @invoice).invoice_email.deliver_now
 end
