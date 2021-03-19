@@ -8,7 +8,7 @@ class ExtrasController < ApplicationController
   end
 
   def create
-    @extra = Extra.new(extras_params)
+    @extra = Extra.new(extra_params)
     if @extra.save
       flash[:notice] = 'Extra created'
       redirect_to @extra
@@ -42,7 +42,7 @@ class ExtrasController < ApplicationController
     @extra = Extra.find(params[:id])
   end
 
-  def extras_params
+  def extra_params
     params.require(:extra).permit(:name, :cost)
   end
 end
