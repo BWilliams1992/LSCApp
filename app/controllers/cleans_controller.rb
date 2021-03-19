@@ -4,8 +4,10 @@ require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 
 class CleansController < ApplicationController
-  CALENDAR_ID = 'primary'
   before_action :set_clean, only: %i[show edit update destroy]
+
+  rescue_from Google::Apis::AuthorizationError, with: :unauthorized
+  
   load_and_authorize_resource
 
   def new
@@ -19,7 +21,7 @@ class CleansController < ApplicationController
       clean = @clean
       event = get_event clean
       client.key = ENV['GOOGLE_API_KEY']
-      client.insert_event('primary', event)
+      client.insert_event('f6bqtf9impi8637ecd7kbn5vbk@group.calendar.google.com', event)
       flash[:notice] = 'Clean was succesfully created!'
       redirect_to @clean
     else
@@ -51,7 +53,7 @@ class CleansController < ApplicationController
           expires_at: client.authorization.expires_at.to_i
         )
       end
-    rescue StandardError => e
+    rescue Google::Apis::AuthorizationError
       flash[:error] = 'Your token has been expired. Please login again with google.'
       redirect_to :back
     end
@@ -90,6 +92,11 @@ class CleansController < ApplicationController
   def clean_params
     params.require(:clean).permit(:date, :location_id, :plot_id, :completed, :clean_type, :clean_request,
                                   :start_time, :end_time, :num_people)
+  end
+
+  def unauthorized
+    flash[:error] = 'Your token has been expired. Please login again with google.'
+    redirect_to user_google_oauth2_omniauth_authorize_path
   end
 
   def get_event(clean)
