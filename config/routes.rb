@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   get 'dashboard/index'
   devise_for :users,
-             controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations', sessions:'users/sessions' }
   resources :users, only: %i[show index update destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'dashboard#index'
