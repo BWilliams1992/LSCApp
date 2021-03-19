@@ -20,9 +20,21 @@ class Location < ApplicationRecord
   has_one_attached :layout
 
   after_create :create_plots, :create_invoices
+  after_update :check_default_house_and_update
 
   private
 
+  def check_default_house_and_update
+    if self.house_id
+      self.plots.each do |plot|
+        if !plot.house_id
+          plot.house_id = self.house_id
+          plot.save
+        end
+      end
+    end
+  end
+  
   def create_plots
     (1..number_of_plots).each do |i|
       plots.create(number: i)
