@@ -1,9 +1,13 @@
 <h1>Plot Number <%= @plot.number %></h1>
-<ul>
-  <li> Site: <%= @plot.location.site_name %> </li>
-  <li>House Type: <%= House.find(@plot.house_id).sales_name if @plot.house_id %> </li>
-</ul>
-
+<div class="row">
+  <div class="col-10">
+    <ul>
+      <li> Site: <%= @plot.location.site_name %> </li>
+      <li>House Type: <%= House.find(@plot.house_id).sales_name if @plot.house_id %> </li>
+    </ul>
+  </div>
+  <div class="col-2"><%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %></div>
+</div>
 <h2>Cleans </h2>
 <hr />
 <h4>Pre-Paint</h4>
@@ -23,4 +27,16 @@
 <% end %>
 <%= link_to 'Add an extra', new_location_plot_plot_extra_path(@plot.location,@plot) %>
 <hr />
-<p><%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %></p>
+<div class="row d-flex justify-content-center">
+  <ul class="pagination">
+    <li class="page-item">
+      <%= link_to('<< Previous', location_plot_path(@plot.location, @plot.location.plots.find_by(number: @plot.number - 1) ), class:"page-link" ) if @plot.number > 1 %> 
+    </li>
+    <li class="page-item">
+      <%= link_to 'Back to site overview', location_path(@plot.location), class:"page-link" %> 
+    </li>
+    <li class="page-item">
+      <%= link_to('Next >>', location_plot_path(@plot.location, @plot.location.plots.find_by(number: @plot.number + 1) ), class:"page-link" ) if @plot.number < @plot.location.number_of_plots %>
+    </li>
+  </ul>
+</div>
