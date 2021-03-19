@@ -1,13 +1,7 @@
 <h1>Plot Number <%= @plot.number %></h1>
-<div class="row">
-  <div class="col-10">
-    <ul>
-      <li> Site: <%= @plot.location.site_name %> </li>
-      <li>House Type: <%= House.find(@plot.house_id).sales_name if @plot.house_id %> </li>
-    </ul>
-  </div>
-  <div class="col-2"><%= link_to 'Edit', edit_location_plot_path(@location, @plot), class: "btn btn-lg btn-warning" %></div>
-</div>
+
+<%= render 'form' %>
+
 <h2>Cleans </h2>
 <hr />
 <h4>Pre-Paint</h4>

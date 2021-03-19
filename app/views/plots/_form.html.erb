@@ -2,9 +2,10 @@
 
   <div class="form-group row">
     <%= f.label :house_id, class:"col-form-label col-2"  %>
-    <%= f.collection_select :house_id, House.all, :id, :sales_name %>
+    <%= f.collection_select :house_id, House.all, :id, :sales_name, {}, {class:"form-control col-10"}%>
   </div>
-
-  <%= f.submit %>
+  <div class="form-group row justify-content-end">
+    <%= f.submit "Update house", class:"btn btn-lg btn-primary" %>
+  </div>
 
 <% end %>
