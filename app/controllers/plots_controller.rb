@@ -14,7 +14,12 @@ class PlotsController < ApplicationController
   def edit; end
 
   def update
-    redirect_to @location if @plot.update(plot_params)
+    if @plot.update(plot_params)
+      flash[:notice] = "Plot successfully updated"
+      redirect_to @plot 
+    else 
+      render 'edit'
+    end
   end
 
   private
